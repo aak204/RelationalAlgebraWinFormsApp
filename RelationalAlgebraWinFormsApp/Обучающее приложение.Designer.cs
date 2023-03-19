@@ -1,4 +1,6 @@
-﻿namespace RelationalAlgebraWinFormsApp
+﻿using System.Drawing;
+
+namespace RelationalAlgebraWinFormsApp
 {
     partial class Form1
     {
@@ -38,9 +40,9 @@
             this.добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.леваяТаблицаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.праваяТаблицаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
@@ -48,7 +50,10 @@
             // 
             // FillInAutomaticallyButton
             // 
-            this.FillInAutomaticallyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FillInAutomaticallyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(150)))), ((int)(((byte)(200)))));
+            this.FillInAutomaticallyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FillInAutomaticallyButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FillInAutomaticallyButton.ForeColor = System.Drawing.Color.White;
             this.FillInAutomaticallyButton.Location = new System.Drawing.Point(37, 470);
             this.FillInAutomaticallyButton.Name = "FillInAutomaticallyButton";
             this.FillInAutomaticallyButton.Size = new System.Drawing.Size(149, 52);
@@ -59,7 +64,10 @@
             // 
             // FillInManuallyButton
             // 
-            this.FillInManuallyButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FillInManuallyButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(150)))), ((int)(((byte)(200)))));
+            this.FillInManuallyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.FillInManuallyButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FillInManuallyButton.ForeColor = System.Drawing.Color.White;
             this.FillInManuallyButton.Location = new System.Drawing.Point(209, 470);
             this.FillInManuallyButton.Name = "FillInManuallyButton";
             this.FillInManuallyButton.Size = new System.Drawing.Size(149, 52);
@@ -70,7 +78,10 @@
             // 
             // SelectOperationButton
             // 
-            this.SelectOperationButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectOperationButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(150)))), ((int)(((byte)(200)))));
+            this.SelectOperationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.SelectOperationButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectOperationButton.ForeColor = System.Drawing.Color.White;
             this.SelectOperationButton.Location = new System.Drawing.Point(382, 470);
             this.SelectOperationButton.Name = "SelectOperationButton";
             this.SelectOperationButton.Size = new System.Drawing.Size(149, 52);
@@ -81,7 +92,10 @@
             // 
             // ShowResultButton
             // 
-            this.ShowResultButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ShowResultButton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(150)))), ((int)(((byte)(200)))));
+            this.ShowResultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ShowResultButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ShowResultButton.ForeColor = System.Drawing.Color.White;
             this.ShowResultButton.Location = new System.Drawing.Point(751, 470);
             this.ShowResultButton.Name = "ShowResultButton";
             this.ShowResultButton.Size = new System.Drawing.Size(149, 52);
@@ -92,6 +106,9 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(240)))), ((int)(((byte)(240)))), ((int)(((byte)(240)))));
+            this.menuStrip1.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.menuStrip1.ForeColor = System.Drawing.Color.Black;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.менюToolStripMenuItem,
             this.информацияToolStripMenuItem});
@@ -106,14 +123,16 @@
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сохранитьToolStripMenuItem,
             this.добавитьСтрокуToolStripMenuItem});
+            this.менюToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             this.менюToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.менюToolStripMenuItem.Text = "Меню";
             // 
             // сохранитьToolStripMenuItem
             // 
+            this.сохранитьToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -122,8 +141,9 @@
             this.добавитьСтрокуToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.леваяТаблицаToolStripMenuItem,
             this.праваяТаблицаToolStripMenuItem});
+            this.добавитьСтрокуToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.добавитьСтрокуToolStripMenuItem.Name = "добавитьСтрокуToolStripMenuItem";
-            this.добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
             this.добавитьСтрокуToolStripMenuItem.Text = "Добавить запись";
             this.добавитьСтрокуToolStripMenuItem.Visible = false;
             // 
@@ -141,6 +161,13 @@
             this.праваяТаблицаToolStripMenuItem.Text = "Правая таблица";
             this.праваяТаблицаToolStripMenuItem.Click += new System.EventHandler(this.праваяТаблицаToolStripMenuItem_Click);
             // 
+            // информацияToolStripMenuItem
+            // 
+            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
+            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
+            this.информацияToolStripMenuItem.Text = "Информация";
+            this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
+            // 
             // dataGridView1
             // 
             this.dataGridView1.AllowUserToResizeColumns = false;
@@ -151,7 +178,7 @@
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(501, 249);
+            this.dataGridView1.Size = new System.Drawing.Size(501, 212);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.TabStop = false;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
@@ -168,19 +195,12 @@
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(501, 249);
+            this.dataGridView2.Size = new System.Drawing.Size(501, 212);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.TabStop = false;
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged_1);
             this.dataGridView2.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView2_RowsAdded);
             this.dataGridView2.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView2_KeyDown);
-            // 
-            // информацияToolStripMenuItem
-            // 
-            this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
-            this.информацияToolStripMenuItem.Size = new System.Drawing.Size(93, 20);
-            this.информацияToolStripMenuItem.Text = "Информация";
-            this.информацияToolStripMenuItem.Click += new System.EventHandler(this.информацияToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -221,6 +241,9 @@
         private System.Windows.Forms.ToolStripMenuItem леваяТаблицаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem праваяТаблицаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem информацияToolStripMenuItem;
+
+
+
     }
 }
 

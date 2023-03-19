@@ -47,11 +47,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ICommand.cs" />
-    <Compile Include="OperationSelectionForm .cs">
+    <Compile Include="OperationSelectionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="OperationSelectionForm .Designer.cs">
-      <DependentUpon>OperationSelectionForm .cs</DependentUpon>
+    <Compile Include="OperationSelectionForm.Designer.cs">
+      <DependentUpon>OperationSelectionForm.cs</DependentUpon>
     </Compile>
     <Compile Include="RelationalOperations.cs" />
     <Compile Include="ResultForm.cs">
@@ -61,7 +61,7 @@
       <DependentUpon>ResultForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Table.cs" />
-    <Compile Include="UndoCommand .cs" />
+    <Compile Include="UndoCommand.cs" />
     <Compile Include="UndoStack.cs" />
     <Compile Include="Обучающее приложение.cs">
       <SubType>Form</SubType>
@@ -71,8 +71,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="OperationSelectionForm .resx">
-      <DependentUpon>OperationSelectionForm .cs</DependentUpon>
+    <EmbeddedResource Include="OperationSelectionForm.resx">
+      <DependentUpon>OperationSelectionForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

@@ -35,6 +35,11 @@ namespace RelationalAlgebraWinFormsApp
             table2 = new Table();
             selectedOperation = "";
             PopulateDataGridView(Fill.Auto);
+
+            // Form properties
+            this.BackColor = Color.FromArgb(245, 245, 245);
+            this.Font = new Font("Segoe UI", 9);
+            this.ForeColor = Color.Black;
         }
 
         /// <summary>
@@ -167,6 +172,36 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="mode"></param>
         private void PopulateDataGridView(Fill mode)
         {
+            DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(255, 255, 255),
+                ForeColor = Color.Black,
+                Font = new Font("Segoe UI", 9),
+                SelectionBackColor = Color.FromArgb(220, 235, 252),
+                SelectionForeColor = Color.Black
+            };
+
+            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(240, 240, 240),
+                ForeColor = Color.Black,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold)
+            };
+
+            dataGridView1.ColumnHeadersDefaultCellStyle = headerStyle;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle;
+            dataGridView1.GridColor = Color.FromArgb(100, 100, 100);
+            dataGridView1.BackgroundColor = Color.FromArgb(40, 40, 40);
+            dataGridView1.BorderStyle = BorderStyle.None;
+
+
+            dataGridView2.ColumnHeadersDefaultCellStyle = headerStyle;
+            dataGridView2.DefaultCellStyle = dataGridViewCellStyle;
+            dataGridView2.GridColor = Color.FromArgb(100, 100, 100);
+            dataGridView2.BackgroundColor = Color.FromArgb(40, 40, 40);
+            dataGridView2.BorderStyle = BorderStyle.None;
+
+
             dataGridView1.Rows.Clear();
             dataGridView1.Columns.Clear();
             dataGridView1.Columns.Add("ID", "ID");
