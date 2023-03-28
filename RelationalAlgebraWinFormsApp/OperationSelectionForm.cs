@@ -12,7 +12,7 @@ namespace RelationalAlgebraWinFormsApp
 {
     public partial class OperationSelectionForm : Form
     {
-        private string selectedOperation;
+        private string selectedOperation, form;
 
         public OperationSelectionForm()
         {
@@ -36,6 +36,9 @@ namespace RelationalAlgebraWinFormsApp
         private void DifferenceButton_Click_1(object sender, EventArgs e)
         {
             selectedOperation = "Difference";
+            ChooseDiff FormDiff = new ChooseDiff();
+            FormDiff.ShowDialog();
+            form = FormDiff.GetForm();
             Close();
         }
 
@@ -43,6 +46,12 @@ namespace RelationalAlgebraWinFormsApp
         {
             return selectedOperation;
         }
+
+        public string GetForms()
+        {
+            return form;
+        }
+
 
         private void button5_Click(object sender, EventArgs e)
         {

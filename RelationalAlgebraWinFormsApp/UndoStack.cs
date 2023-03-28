@@ -9,12 +9,12 @@ namespace RelationalAlgebraWinFormsApp
 {
     internal class UndoStack
     {
-        private Dictionary<Tuple<int, int>, Stack<ICommand>> _commands = new Dictionary<Tuple<int, int>, Stack<ICommand>>();
+        private Dictionary<string, Stack<ICommand>> _commands = new Dictionary<string, Stack<ICommand>>();
 
 
-        public void Execute(int rowIndex, int columnIndex, ICommand command)
+        public void Execute(int rowIndex, string columnName, ICommand command)
         {
-            var key = Tuple.Create(rowIndex, columnIndex);
+            var key = $"{rowIndex}:{columnName}";
             if (!_commands.ContainsKey(key))
             {
                 _commands[key] = new Stack<ICommand>();
@@ -24,18 +24,18 @@ namespace RelationalAlgebraWinFormsApp
             _commands[key].Push(command);
         }
 
-        public void Undo(int rowIndex, int columnIndex)
+        public void Undo(int rowIndex, string columnName)
         {
-            var key = Tuple.Create(rowIndex, columnIndex);
+            var key = $"{rowIndex}:{columnName}";
             if (!_commands.ContainsKey(key) || _commands[key].Count == 0) return;
 
             ICommand command = _commands[key].Pop();
             command.Undo();
         }
 
-        public void Pop(int rowIndex, int columnIndex)
+        public void Pop(int rowIndex, string columnName)
         {
-            var key = Tuple.Create(rowIndex, columnIndex);
+            var key = $"{rowIndex}:{columnName}";
             if (_commands.ContainsKey(key) && _commands[key].Count > 0)
             {
                 _commands[key].Pop();

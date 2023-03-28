@@ -40,6 +40,9 @@ namespace RelationalAlgebraWinFormsApp
             this.добавитьСтрокуToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.леваяТаблицаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.праваяТаблицаToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.добавитьToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.леваяТаблицаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.праваяТаблицаToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.информацияToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
@@ -54,7 +57,7 @@ namespace RelationalAlgebraWinFormsApp
             this.FillInAutomaticallyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FillInAutomaticallyButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FillInAutomaticallyButton.ForeColor = System.Drawing.Color.White;
-            this.FillInAutomaticallyButton.Location = new System.Drawing.Point(37, 470);
+            this.FillInAutomaticallyButton.Location = new System.Drawing.Point(503, 84);
             this.FillInAutomaticallyButton.Name = "FillInAutomaticallyButton";
             this.FillInAutomaticallyButton.Size = new System.Drawing.Size(149, 52);
             this.FillInAutomaticallyButton.TabIndex = 0;
@@ -68,7 +71,7 @@ namespace RelationalAlgebraWinFormsApp
             this.FillInManuallyButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.FillInManuallyButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.FillInManuallyButton.ForeColor = System.Drawing.Color.White;
-            this.FillInManuallyButton.Location = new System.Drawing.Point(209, 470);
+            this.FillInManuallyButton.Location = new System.Drawing.Point(503, 142);
             this.FillInManuallyButton.Name = "FillInManuallyButton";
             this.FillInManuallyButton.Size = new System.Drawing.Size(149, 52);
             this.FillInManuallyButton.TabIndex = 1;
@@ -82,7 +85,7 @@ namespace RelationalAlgebraWinFormsApp
             this.SelectOperationButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SelectOperationButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.SelectOperationButton.ForeColor = System.Drawing.Color.White;
-            this.SelectOperationButton.Location = new System.Drawing.Point(382, 470);
+            this.SelectOperationButton.Location = new System.Drawing.Point(503, 200);
             this.SelectOperationButton.Name = "SelectOperationButton";
             this.SelectOperationButton.Size = new System.Drawing.Size(149, 52);
             this.SelectOperationButton.TabIndex = 2;
@@ -96,7 +99,7 @@ namespace RelationalAlgebraWinFormsApp
             this.ShowResultButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.ShowResultButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ShowResultButton.ForeColor = System.Drawing.Color.White;
-            this.ShowResultButton.Location = new System.Drawing.Point(751, 470);
+            this.ShowResultButton.Location = new System.Drawing.Point(503, 444);
             this.ShowResultButton.Name = "ShowResultButton";
             this.ShowResultButton.Size = new System.Drawing.Size(149, 52);
             this.ShowResultButton.TabIndex = 3;
@@ -122,7 +125,8 @@ namespace RelationalAlgebraWinFormsApp
             // 
             this.менюToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.сохранитьToolStripMenuItem,
-            this.добавитьСтрокуToolStripMenuItem});
+            this.добавитьСтрокуToolStripMenuItem,
+            this.добавитьToolStripMenuItem});
             this.менюToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.менюToolStripMenuItem.Name = "менюToolStripMenuItem";
             this.менюToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
@@ -132,7 +136,7 @@ namespace RelationalAlgebraWinFormsApp
             // 
             this.сохранитьToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.сохранитьToolStripMenuItem.Name = "сохранитьToolStripMenuItem";
-            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.сохранитьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.сохранитьToolStripMenuItem.Text = "Сохранить";
             this.сохранитьToolStripMenuItem.Click += new System.EventHandler(this.сохранитьToolStripMenuItem_Click);
             // 
@@ -143,7 +147,7 @@ namespace RelationalAlgebraWinFormsApp
             this.праваяТаблицаToolStripMenuItem});
             this.добавитьСтрокуToolStripMenuItem.ForeColor = System.Drawing.Color.Black;
             this.добавитьСтрокуToolStripMenuItem.Name = "добавитьСтрокуToolStripMenuItem";
-            this.добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(166, 22);
+            this.добавитьСтрокуToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
             this.добавитьСтрокуToolStripMenuItem.Text = "Добавить запись";
             this.добавитьСтрокуToolStripMenuItem.Visible = false;
             // 
@@ -161,6 +165,30 @@ namespace RelationalAlgebraWinFormsApp
             this.праваяТаблицаToolStripMenuItem.Text = "Правая таблица";
             this.праваяТаблицаToolStripMenuItem.Click += new System.EventHandler(this.праваяТаблицаToolStripMenuItem_Click);
             // 
+            // добавитьToolStripMenuItem
+            // 
+            this.добавитьToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.леваяТаблицаToolStripMenuItem1,
+            this.праваяТаблицаToolStripMenuItem1});
+            this.добавитьToolStripMenuItem.Name = "добавитьToolStripMenuItem";
+            this.добавитьToolStripMenuItem.Size = new System.Drawing.Size(172, 22);
+            this.добавитьToolStripMenuItem.Text = "Добавить атрибут";
+            this.добавитьToolStripMenuItem.Visible = false;
+            // 
+            // леваяТаблицаToolStripMenuItem1
+            // 
+            this.леваяТаблицаToolStripMenuItem1.Name = "леваяТаблицаToolStripMenuItem1";
+            this.леваяТаблицаToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.леваяТаблицаToolStripMenuItem1.Text = "Левая таблица";
+            this.леваяТаблицаToolStripMenuItem1.Click += new System.EventHandler(this.леваяТаблицаToolStripMenuItem1_Click);
+            // 
+            // праваяТаблицаToolStripMenuItem1
+            // 
+            this.праваяТаблицаToolStripMenuItem1.Name = "праваяТаблицаToolStripMenuItem1";
+            this.праваяТаблицаToolStripMenuItem1.Size = new System.Drawing.Size(162, 22);
+            this.праваяТаблицаToolStripMenuItem1.Text = "Правая таблица";
+            this.праваяТаблицаToolStripMenuItem1.Click += new System.EventHandler(this.праваяТаблицаToolStripMenuItem1_Click);
+            // 
             // информацияToolStripMenuItem
             // 
             this.информацияToolStripMenuItem.Name = "информацияToolStripMenuItem";
@@ -174,11 +202,11 @@ namespace RelationalAlgebraWinFormsApp
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 110);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 27);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(501, 212);
+            this.dataGridView1.Size = new System.Drawing.Size(480, 269);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.TabStop = false;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
@@ -191,11 +219,11 @@ namespace RelationalAlgebraWinFormsApp
             this.dataGridView2.AllowUserToResizeRows = false;
             this.dataGridView2.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(565, 110);
+            this.dataGridView2.Location = new System.Drawing.Point(12, 315);
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(501, 212);
+            this.dataGridView2.Size = new System.Drawing.Size(480, 269);
             this.dataGridView2.TabIndex = 6;
             this.dataGridView2.TabStop = false;
             this.dataGridView2.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellValueChanged_1);
@@ -206,7 +234,7 @@ namespace RelationalAlgebraWinFormsApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1078, 570);
+            this.ClientSize = new System.Drawing.Size(1078, 596);
             this.Controls.Add(this.dataGridView2);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.ShowResultButton);
@@ -241,9 +269,9 @@ namespace RelationalAlgebraWinFormsApp
         private System.Windows.Forms.ToolStripMenuItem леваяТаблицаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem праваяТаблицаToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem информацияToolStripMenuItem;
-
-
-
+        private System.Windows.Forms.ToolStripMenuItem добавитьToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem леваяТаблицаToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem праваяТаблицаToolStripMenuItem1;
     }
 }
 

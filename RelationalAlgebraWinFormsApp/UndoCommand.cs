@@ -14,10 +14,10 @@ namespace RelationalAlgebraWinFormsApp
         private readonly DataGridView _dataGridView;
         private readonly int _rowIndex;
         private readonly int _columnIndex;
-        private readonly Tuple<int, string, string> _previousValues;
-        private readonly Tuple<int, string, string> _currentValues;
+        private readonly object[] _previousValues;
+        private readonly object[] _currentValues;
 
-        public UndoCommand(DataGridView dataGridView, int rowIndex, int columnIndex, Tuple<int, string, string> previousValues, Tuple<int, string, string> currentValues)
+        public UndoCommand(DataGridView dataGridView, int rowIndex, int columnIndex, object[] previousValues, object[] currentValues)
         {
             _dataGridView = dataGridView;
             _rowIndex = rowIndex;
@@ -28,35 +28,16 @@ namespace RelationalAlgebraWinFormsApp
 
         public void Execute(object parameter)
         {
-            switch (_columnIndex)
-            { 
-                case 0:
-                    _dataGridView[_dataGridView.Columns["id"].Index, _dataGridView.CurrentCell.RowIndex].Value = _currentValues.Item1;
-                    break;
-                case 1:
-                    _dataGridView[_dataGridView.Columns["name"].Index, _dataGridView.CurrentCell.RowIndex].Value = _currentValues.Item2;
-                    break;
-                case 2:
-                    _dataGridView[_dataGridView.Columns["company"].Index, _dataGridView.CurrentCell.RowIndex].Value = _currentValues.Item3;
-                    break;
-            }
+            var columnName = _dataGridView.Columns[_columnIndex].Name;
+            var columnIndex = _dataGridView.Columns[columnName].Index;
+            _dataGridView[columnIndex, _dataGridView.CurrentCell.RowIndex].Value = _currentValues[_columnIndex];
         }
 
         public void Undo()
         {
-            switch (_columnIndex)
-            {
-                case 0:
-                    _dataGridView[_dataGridView.Columns["id"].Index, _rowIndex].Value = _previousValues.Item1;
-                    break;
-                case 1:
-                    _dataGridView[_dataGridView.Columns["name"].Index, _rowIndex].Value = _previousValues.Item2;
-                    break;
-                case 2:
-                    _dataGridView[_dataGridView.Columns["company"].Index, _rowIndex].Value = _previousValues.Item3;
-                    break;
-            }
-
+            var columnName = _dataGridView.Columns[_columnIndex].Name;
+            var columnIndex = _dataGridView.Columns[columnName].Index;
+            _dataGridView[columnIndex, _rowIndex].Value = _previousValues[_columnIndex];
         }
 
         public bool CanExecute(object parameter)

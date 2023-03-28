@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -8,81 +9,92 @@ using System.Xml.Linq;
 
 namespace RelationalAlgebraWinFormsApp
 {
-    internal class Table
-    {
-        private List<Tuple<int, string, string>> rows;
-        private static readonly string[] Names = {
-    "Иванов Иван Иванович",
-    "Петров Петр Петрович",
-    "Сидорова Елена Викторовна",
-    "Козлова Анна Андреевна",
-    "Васильев Андрей Сергеевич",
-    "Громов Денис Владимирович",
-    "Королева Ольга Анатольевна",
-    "Лебедев Александр Иванович",
-    "Романова Ирина Дмитриевна",
-    "Федоров Сергей Анатольевич"
-};
 
-        private static readonly string[] Companies = {
-    "ООО \"Рога и копыта\"",
-    "ЗАО \"Русский газ\"",
-    "ОАО \"Газпром\"",
-    "ПАО \"Сбербанк\"",
-    "ООО \"Газпром нефть\"",
-    "ПАО \"Лукойл\"",
-    "ООО \"Роснефть\"",
-    "АО \"Транснефть\"",
-    "ООО \"РусГидро\"",
-    "ПАО \"Магнит\""
-};
+    public class Table
+    {
+        public string[] columsNames;
+        public List<object[]> data_obj = new List<object[]>();
+
+        string[] Names = File.ReadAllLines("Companies.txt");
+        string[] Companies = File.ReadAllLines("Names.txt");
+
         private static readonly Random Random = new Random();
 
-        public Table()
+        public Table(params string[] names)
         {
-            rows = new List<Tuple<int, string, string>>();
+            columsNames = new string[names.Length];
+            for (int i = 0; i < names.Length; i++)
+            {
+                columsNames[i] = names[i];
+            }
         }
 
         public void FillInAutomatically()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 13; i++)
             {
                 int id = Random.Next(1, 512);
                 string name = Names[Random.Next(0, Names.Length)];
                 string company = Companies[Random.Next(0, Companies.Length)];
-                rows.Add(new Tuple<int, string, string>(id, name, company));
+
+                data_obj.Add(new object[] { id, name, company });
             }
         }
 
         public void FillInManual()
         {
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < 13; i++)
             {
-                rows.Add(new Tuple<int, string, string>(0, null, null));
+                data_obj.Add(new object[] { 0, null, null });
             }
         }
 
         public void AddRow()
         {
-            rows.Add(new Tuple<int, string, string>(0, null, null));
+            object[] row = new object[data_obj.Count > 0 ? data_obj[0].Length : 3];
+            row[0] = 0;
+            data_obj.Add(row);
         }
 
-
-        public void RewriteRow(int id, string name, string company, int index)
+        public void RewriteRow(object[] rowValues, int RowIdx)
         {
-            rows[index] = new Tuple<int, string, string>(id, name, company);
+            if (rowValues == null || rowValues.Length == 0) throw new ArgumentException();
+            int index = RowIdx;
+            if (index < 0 || index >= data_obj.Count) throw new ArgumentOutOfRangeException();
+            data_obj[index] = rowValues;
         }
+
+        public void AddColumn(string columnName)
+        {
+            string[] newColumnNames = new string[columsNames.Length + 1];
+
+            Array.Copy(columsNames, newColumnNames, columsNames.Length);
+
+            newColumnNames[columsNames.Length] = columnName;
+
+            columsNames = newColumnNames;
+
+            for (int i = 0; i < data_obj.Count; i++)
+            {
+                object[] row = data_obj[i];
+                Array.Resize(ref row, columsNames.Length);
+                row[columsNames.Length - 1] = ""; // заполнить пустой строкой
+                data_obj[i] = row;
+            }
+        }
+
+
 
         public bool IsEmpty()
         {
-            return rows.Count == 0;
+            return data_obj.Count == 0;
         }
 
         public int CheckId(int id)
         {
-            for (int i = 0; i < rows.Count; i++)
+            for (int i = 0; i < data_obj.Count; i++)
             {
-                if (rows[i].Item1 == id)
+                if ((int)data_obj[i][0] == id)
                 {
                     return i;
                 }
@@ -92,19 +104,20 @@ namespace RelationalAlgebraWinFormsApp
 
         public int GetId(int excludeIndex)
         {
-            for (int i = 0; i < rows.Count; i++)
+            for (int i = 0; i < data_obj.Count; i++)
             {
-                if (i == excludeIndex)
+                if (i != excludeIndex)
                 {
-                    return i;
+                    return (int)data_obj[i][0];
                 }
             }
-            return -1; 
+            return -1;
         }
 
-        public List<Tuple<int, string, string>> GetRows()
+
+        public List<object[]> GetRows()
         {
-            return rows;
+            return data_obj;
         }
     }
 }

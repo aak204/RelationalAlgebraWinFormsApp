@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddColum.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddColum.Designer.cs">
+      <DependentUpon>AddColum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ChooseDiff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ChooseDiff.Designer.cs">
+      <DependentUpon>ChooseDiff.cs</DependentUpon>
+    </Compile>
     <Compile Include="ICommand.cs" />
     <Compile Include="OperationSelectionForm.cs">
       <SubType>Form</SubType>
@@ -71,6 +83,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="AddColum.resx">
+      <DependentUpon>AddColum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ChooseDiff.resx">
+      <DependentUpon>ChooseDiff.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="OperationSelectionForm.resx">
       <DependentUpon>OperationSelectionForm.cs</DependentUpon>
     </EmbeddedResource>

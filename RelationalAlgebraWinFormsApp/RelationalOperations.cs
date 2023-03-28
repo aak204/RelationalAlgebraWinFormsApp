@@ -10,104 +10,252 @@ namespace RelationalAlgebraWinFormsApp
     internal class RelationalOperations
     {
 
-        public static List<Tuple<int, string, string>> Union(List<Tuple<int, string, string>> table1, List<Tuple<int, string, string>> table2)
+        public static Table Union(Table table1, Table table2)
         {
-            List<Tuple<int, string, string>> result = new List<Tuple<int, string, string>>();
+            List<string> names = new List<string>();
 
-            HashSet<Tuple<int, string, string>> seenRows = new HashSet<Tuple<int, string, string>>();
-
-
-            foreach (Tuple<int, string, string> row in table1)
+            foreach (string name in table1.columsNames)
             {
-                if (!string.IsNullOrEmpty(row.Item2) && !string.IsNullOrEmpty(row.Item3) &&
-                    seenRows.Add(row)) 
+                if (!names.Contains(name))
                 {
-                    result.Add(row);
+                    names.Add(name);
+                }
+            }
+            foreach (string name in table2.columsNames)
+            {
+                if (!names.Contains(name))
+                {
+                    names.Add(name);
                 }
             }
 
+            Table result = new Table(names.ToArray());
 
-            foreach (Tuple<int, string, string> row in table2)
+            foreach (object[] row in table1.data_obj)
             {
-                if (!string.IsNullOrEmpty(row.Item2) && !string.IsNullOrEmpty(row.Item3) &&
-                    seenRows.Add(row)) 
+                object[] resultRow = new object[names.Count];
+                for (int i = 0; i < table1.columsNames.Length; i++)
                 {
-                    result.Add(row);
+                    int index = names.IndexOf(table1.columsNames[i]);
+                    if (index != -1 && i < row.Length)
+                    {
+                        resultRow[index] = row[i];
+                    }
                 }
+                result.data_obj.Add(resultRow);
+            }
+
+            foreach (object[] row in table2.data_obj)
+            {
+                object[] resultRow = new object[names.Count];
+                for (int i = 0; i < table2.columsNames.Length; i++)
+                {
+                    int index = names.IndexOf(table2.columsNames[i]);
+                    if (index != -1 && i < row.Length)
+                    {
+                        resultRow[index] = row[i];
+                    }
+                }
+                result.data_obj.Add(resultRow);
             }
 
             return result;
         }
 
-        public static List<Tuple<int, string, string>> Intersection(List<Tuple<int, string, string>> table1, List<Tuple<int, string, string>> table2)
+        public static Table Intersection(Table table1, Table table2)
         {
-            List<Tuple<int, string, string>> result = new List<Tuple<int, string, string>>();
-            foreach (Tuple<int, string, string> row1 in table1)
+            // Найдем общие столбцы по индексу
+            List<int> commonColumns = new List<int>();
+            for (int i = 0; i < table1.columsNames.Length; i++)
             {
-                foreach (Tuple<int, string, string> row2 in table2)
+                for (int j = 0; j < table2.columsNames.Length; j++)
                 {
-                    if (row1.Item1 == row2.Item1 && row1.Item2 == row2.Item2 && row1.Item3 == row2.Item3
-                        && !string.IsNullOrEmpty(row1.Item2) && !string.IsNullOrEmpty(row1.Item3))
+                    if (table1.columsNames[i] == table2.columsNames[j])
                     {
-                        result.Add(row1);
+                        commonColumns.Add(i);
                         break;
                     }
                 }
             }
 
+            // Результат будет только с общими столбцами
+            Table result = new Table(commonColumns.Select(i => table1.columsNames[i]).ToArray());
+
+            // Найдем совпадающие строки в обеих таблицах
+            foreach (object[] row1 in table1.data_obj)
+            {
+                foreach (object[] row2 in table2.data_obj)
+                {
+                    bool match = true;
+                    for (int i = 0; i < commonColumns.Count; i++)
+                    {
+                        int index = commonColumns[i];
+                        if (!row1[index].Equals(row2[index]))
+                        {
+                            match = false;
+                            break;
+                        }
+                    }
+                    if (match)
+                    {
+                        object[] resultRow = new object[commonColumns.Count];
+                        for (int i = 0; i < commonColumns.Count; i++)
+                        {
+                            int index = commonColumns[i];
+                            resultRow[i] = row1[index];
+                        }
+                        result.data_obj.Add(resultRow);
+                    }
+                }
+            }
+
             return result;
         }
 
-        public static List<Tuple<int, string, string>> Difference(List<Tuple<int, string, string>> table1, List<Tuple<int, string, string>> table2)
+        public static Table Difference(Table table1, Table table2, int subtractFromTable)
         {
+            List<string> names = new List<string>();
 
-            List<Tuple<int, string, string>> result = new List<Tuple<int, string, string>>();
-            foreach (Tuple<int, string, string> row1 in table1)
+            if (subtractFromTable == 1)
             {
-                if (!string.IsNullOrEmpty(row1.Item2) && !string.IsNullOrEmpty(row1.Item3))
+                foreach (var item in table1.columsNames)
                 {
-                    bool found = false;
-                    foreach (Tuple<int, string, string> row2 in table2)
+                    names.Add(item);
+                }
+            }
+            else
+            {
+                foreach (var item in table2.columsNames)
+                {
+                    names.Add(item);
+                }
+            }
+
+            Table result = new Table(names.ToArray());
+            foreach (var row1 in table1.data_obj)
+            {
+                if (IsEmptyRow(row1))
+                {
+                    continue;
+                }
+
+                bool found = false;
+                foreach (var row2 in table2.data_obj)
+                {
+                    if (row1.SequenceEqual(row2))
                     {
-                        if (row1.Item1 == row2.Item1 && row1.Item2 == row2.Item2 && row1.Item3 == row2.Item3)
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found && subtractFromTable == 1)
+                {
+                    result.data_obj.Add(row1);
+                }
+            }
+
+            if (subtractFromTable == 2)
+            {
+                foreach (var row2 in table2.data_obj)
+                {
+                    if (IsEmptyRow(row2))
+                    {
+                        continue;
+                    }
+
+                    bool found = false;
+                    foreach (var row1 in table1.data_obj)
+                    {
+                        if (row2.SequenceEqual(row1))
                         {
                             found = true;
                             break;
                         }
                     }
+
                     if (!found)
                     {
-                        result.Add(row1);
+                        result.data_obj.Add(row2);
                     }
                 }
             }
+
             return result;
         }
 
-        public static List<Tuple<int, string, string, int, string, string>> CartesianProduct(List<Tuple<int, string, string>> table1, List<Tuple<int, string, string>> table2)
-        {
-            List<Tuple<int, string, string, int, string, string>> result = new List<Tuple<int, string, string, int, string, string>>();
 
-            foreach (Tuple<int, string, string> row1 in table1)
+
+        public static Table CartesianProduct(Table table1, Table table2)
+        {
+            // Create the result table with the combined column names
+            List<string> names = new List<string>();
+            foreach (string name in table1.columsNames)
             {
-                if (row1.Item1 == 0 && row1.Item2 == null && row1.Item3 == null)
-                    continue;
-                foreach (Tuple<int, string, string> row2 in table2)
+                names.Add(name + "1");
+            }
+            foreach (string name in table2.columsNames)
+            {
+                names.Add(name + "2");
+            }
+            Table result = new Table(names.ToArray());
+
+            // Find the Cartesian product of the two tables
+            foreach (var row1 in table1.data_obj)
+            {
+                if (IsEmptyRow(row1))
                 {
-                    if (row2.Item1 == 0 && row2.Item2 == null && row2.Item3 == null)
+                    continue;
+                }
+                foreach (var row2 in table2.data_obj)
+                {
+                    if (IsEmptyRow(row2))
+                    {
                         continue;
-                    int idR3 = row1.Item1;
-                    string nameR3 = row1.Item2;
-                    string companyR3 = row1.Item3;
-                    int idR4 = row2.Item1;
-                    string nameR4 = row2.Item2;
-                    string companyR4 = row2.Item3;
-                    result.Add(new Tuple<int, string, string, int, string, string>(idR3, nameR3, companyR3, idR4, nameR4, companyR4));
+                    }
+
+                    object[] resultRow = new object[names.Count];
+                    for (int i = 0; i < table1.columsNames.Length; i++)
+                    {
+                        if (i < row1.Length)
+                        {
+                            resultRow[i] = row1[i];
+                        }
+                        else
+                        {
+                            resultRow[i] = null;
+                        }
+                    }
+                    for (int i = 0; i < table2.columsNames.Length; i++)
+                    {
+                        if (i < row2.Length)
+                        {
+                            resultRow[table1.columsNames.Length + i] = row2[i];
+                        }
+                        else
+                        {
+                            resultRow[table1.columsNames.Length + i] = null;
+                        }
+                    }
+                    result.data_obj.Add(resultRow);
                 }
             }
 
             return result;
         }
+
+        private static bool IsEmptyRow(object[] row)
+        {
+            foreach (var cell in row)
+            {
+                if (cell != null && !string.IsNullOrEmpty(cell.ToString()))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
 
     }
 }
