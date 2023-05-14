@@ -13,8 +13,10 @@ namespace RelationalAlgebraWinFormsApp
     public partial class AddColum : Form
     {
         private string columName = "";
-        public AddColum()
+        private readonly bool _flag = false;
+        public AddColum(bool flag)
         {
+            _flag = flag;
             InitializeComponent();
         }
 
@@ -27,6 +29,17 @@ namespace RelationalAlgebraWinFormsApp
         public string getColumName()
         {
             return columName;
+        }
+
+        private void AddColum_Load(object sender, EventArgs e)
+        {
+            if (_flag)
+            {
+                label1.Text = "Введите название атрибута для соединения";
+                this.Width = 400;
+                button1.Location = new Point(110, 65);
+                textBox1.Location = new Point(85, 33);
+            }
         }
     }
 }

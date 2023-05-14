@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="RelationalAlgebraWinFormsApp.AddColum" Collapsed="true">
+    <Position X="5.75" Y="1.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAIAAAAEEAAAAEAAAA=</HashCode>
+      <FileName>AddColum.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.Choose" Collapsed="true">
+    <Position X="3" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAAACAAABAAAACAAAACEAAYAAAAAGAAAAAAAAA=</HashCode>
+      <FileName>Choose.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.MainForm">
+    <Position X="5.75" Y="4.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Delegate Name="RelationalAlgebraWinFormsApp.MainForm.OperationDelegate" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Обучающее приложение.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Delegate>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>ISIgECEBGGcAAcxAACCANUBCQAQAKQAAJgABWQAQsCA=</HashCode>
+      <FileName>Обучающее приложение.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.UndoStack">
+    <Position X="3.5" Y="4.75" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACBAQAAAAAAAAAAACAAAAAAAAAABAAAAA=</HashCode>
+      <FileName>UndoStack.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.Table">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AEBAgAAAAAAiAACAAAAAAAQAgQAgBIAQEAAAAgIAAAA=</HashCode>
+      <FileName>Table.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.RelationalOperations">
+    <Position X="5.25" Y="7.5" Width="2.5" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAUACAAgAAAAICABAQQAAAAAAAAAAQQAAAAA=</HashCode>
+      <FileName>RelationalOperations.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.OperationSelectionForm" Collapsed="true">
+    <Position X="8" Y="2.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AUgAAAFAACAAABAAAACAAAECAMA4AAEABDAMAAAAAAA=</HashCode>
+      <FileName>OperationSelectionForm.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="System.Windows.Forms.Form" Collapsed="true">
+    <Position X="5.75" Y="2.75" Width="1.5" />
+    <TypeIdentifier />
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.DataGridViewDesignHelper">
+    <Position X="8.75" Y="6.25" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Properties" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAACAAAAAAAAAAAAAQAAAAAAAgAAAAAAAAA=</HashCode>
+      <FileName>DataGridViewDesignHelper.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="MainForm" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.UndoCommand">
+    <Position X="1" Y="4" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Properties" Collapsed="true" />
+      <Compartment Name="Events" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAABAAAgAAAKBAQAAEAAIAAAAAAAAAAAIAAAAAAAgAA=</HashCode>
+      <FileName>UndoCommand.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="UndoStack" />
+    </ShowAsAssociation>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

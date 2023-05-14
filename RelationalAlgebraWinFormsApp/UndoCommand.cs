@@ -26,6 +26,22 @@ namespace RelationalAlgebraWinFormsApp
             _currentValues = currentValues;
         }
 
+        public MainForm MainForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
+        internal UndoStack UndoStack
+        {
+            get => default;
+            set
+            {
+            }
+        }
+
         public void Execute(object parameter)
         {
             var columnName = _dataGridView.Columns[_columnIndex].Name;

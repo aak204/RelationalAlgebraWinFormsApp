@@ -10,11 +10,12 @@ using System.Windows.Forms;
 
 namespace RelationalAlgebraWinFormsApp
 {
-    public partial class ChooseDiff : Form
+    public partial class Choose : Form
     {
-        private string form = "";
-        public ChooseDiff()
+        private string form = "", op;
+        public Choose(string Operation)
         {
+            op = Operation;
             InitializeComponent();
         }
 
@@ -33,6 +34,19 @@ namespace RelationalAlgebraWinFormsApp
         public string GetForm()
         {
             return form;
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Choose_Load(object sender, EventArgs e)
+        {
+            if (op == "Difference")
+                label1.Text = "Выберите из какой таблицы производить вычитание";
+            else if (op == "Select")
+                label1.Text = "Выберите таблицу для которой выполнить операцию выборки";
         }
     }
 }

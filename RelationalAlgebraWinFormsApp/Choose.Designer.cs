@@ -1,6 +1,6 @@
 ﻿namespace RelationalAlgebraWinFormsApp
 {
-    partial class ChooseDiff
+    partial class Choose
     {
         /// <summary>
         /// Required designer variable.
@@ -42,6 +42,7 @@
             this.label1.Size = new System.Drawing.Size(414, 20);
             this.label1.TabIndex = 0;
             this.label1.Text = "Выберите из какой таблицы производить вычитание";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // button1
             // 
@@ -65,7 +66,7 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // ChooseDiff
+            // Choose
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -73,9 +74,10 @@
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
-            this.Name = "ChooseDiff";
+            this.Name = "Choose";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "ChooseDiff";
+            this.Load += new System.EventHandler(this.Choose_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

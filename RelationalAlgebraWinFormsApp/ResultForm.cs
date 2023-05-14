@@ -18,7 +18,7 @@ namespace RelationalAlgebraWinFormsApp
             InitializeComponent();
             dataGridView.AllowUserToAddRows = false;
 
-            foreach (var item in result.columsNames)
+            foreach (var item in result.columnsNames)
             {
                 dataGridView.Columns.Add(item, item);
             }

@@ -12,20 +12,28 @@ namespace RelationalAlgebraWinFormsApp
 
     public class Table
     {
-        public string[] columsNames;
+        public string[] columnsNames;
         public List<object[]> data_obj = new List<object[]>();
 
-        string[] Names = File.ReadAllLines("Companies.txt");
-        string[] Companies = File.ReadAllLines("Names.txt");
+        string[] Names = File.ReadAllLines("Names.txt");
+        string[] Companies = File.ReadAllLines("Companies.txt");
 
         private static readonly Random Random = new Random();
 
         public Table(params string[] names)
         {
-            columsNames = new string[names.Length];
+            columnsNames = new string[names.Length];
             for (int i = 0; i < names.Length; i++)
             {
-                columsNames[i] = names[i];
+                columnsNames[i] = names[i];
+            }
+        }
+
+        public MainForm MainForm
+        {
+            get => default;
+            set
+            {
             }
         }
 
@@ -45,7 +53,7 @@ namespace RelationalAlgebraWinFormsApp
         {
             for (int i = 0; i < 13; i++)
             {
-                data_obj.Add(new object[] { 0, null, null });
+                data_obj.Add(new object[] { 0, "", "" });
             }
         }
 
@@ -53,6 +61,8 @@ namespace RelationalAlgebraWinFormsApp
         {
             object[] row = new object[data_obj.Count > 0 ? data_obj[0].Length : 3];
             row[0] = 0;
+            for (int i = 1; i < row.Length; i++)
+                row[i] = "";
             data_obj.Add(row);
         }
 
@@ -66,19 +76,19 @@ namespace RelationalAlgebraWinFormsApp
 
         public void AddColumn(string columnName)
         {
-            string[] newColumnNames = new string[columsNames.Length + 1];
+            string[] newColumnNames = new string[columnsNames.Length + 1];
 
-            Array.Copy(columsNames, newColumnNames, columsNames.Length);
+            Array.Copy(columnsNames, newColumnNames, columnsNames.Length);
 
-            newColumnNames[columsNames.Length] = columnName;
+            newColumnNames[columnsNames.Length] = columnName;
 
-            columsNames = newColumnNames;
+            columnsNames = newColumnNames;
 
             for (int i = 0; i < data_obj.Count; i++)
             {
                 object[] row = data_obj[i];
-                Array.Resize(ref row, columsNames.Length);
-                row[columsNames.Length - 1] = ""; // заполнить пустой строкой
+                Array.Resize(ref row, columnsNames.Length);
+                row[columnsNames.Length - 1] = ""; // заполнить пустой строкой
                 data_obj[i] = row;
             }
         }
@@ -114,6 +124,36 @@ namespace RelationalAlgebraWinFormsApp
             return -1;
         }
 
+        public int GetColumnIndex(string columnName)
+        {
+            for (int i = 0; i < columnsNames.Length; i++)
+            {
+                if (columnsNames[i].Equals(columnName, StringComparison.OrdinalIgnoreCase))
+                {
+                    return i;
+                }
+            }
+
+            return -1; // Если столбец не найден, возвращаем -1
+        }
+
+        public bool HasSameColumns(Table other)
+        {
+            if (columnsNames.Length != other.columnsNames.Length)
+            {
+                return false;
+            }
+
+            for (int i = 0; i < columnsNames.Length; i++)
+            {
+                if (!columnsNames[i].Equals(other.columnsNames[i], StringComparison.OrdinalIgnoreCase))
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
 
         public List<object[]> GetRows()
         {

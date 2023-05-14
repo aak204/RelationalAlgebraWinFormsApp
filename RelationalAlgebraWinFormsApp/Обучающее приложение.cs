@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,10 +11,11 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 
 namespace RelationalAlgebraWinFormsApp
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         /// <summary>
         /// Необходимые переменные для приложения
@@ -21,20 +23,23 @@ namespace RelationalAlgebraWinFormsApp
         private Table table1;
         private Table table2;
         private string selectedOperation, newColmName;
-        private int forms;
+        private int forms, auto;
         private bool once = true, partiallyFilled = true;
         private readonly UndoStack _undoStack = new UndoStack();
         private readonly UndoStack _undoStack2 = new UndoStack();
         private readonly string[] namesColumns = new string[3] { "ID", "ФИО", "КОМПАНИЯ" };
-        public delegate Table OperationDelegate(Table table1, Table table2, int forms);
-
+        public delegate Table OperationDelegate(Table table1, Table table2, int forms, string columnName);
+        public OperationSelectionForm operationSelectionForm;
         private Dictionary<string, OperationDelegate> operationDelegates;
+        private bool doNotShowSaveMsgBox = false; // Флаг, который хранит, хотим ли мы показывать MessageBox
+        private string lastOperation = null; // Хранит последнюю выполненную операцию
+        private bool flag = false; // Хранит последнюю выполненную операцию
 
 
         /// <summary>
         /// Инициализация главной формы
         /// </summary>
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
             table1 = new Table(namesColumns);
@@ -49,10 +54,19 @@ namespace RelationalAlgebraWinFormsApp
 
             // Инициализируем делегат
             operationDelegates = new Dictionary<string, OperationDelegate> {
-        { "Union", (table1, table2, forms) => RelationalOperations.Union(table1, table2)},
-        { "Intersection", (table1, table2, forms) => RelationalOperations.Intersection(table1, table2) },
-        { "Difference", (table1, table2, forms) => RelationalOperations.Difference(table1, table2, forms) },
-        { "CartesianProduct", (table1, table2, forms) => RelationalOperations.CartesianProduct(table1, table2) } };
+    { "Union", (table1, table2, forms, columnName) => RelationalOperations.Union(table1, table2)},
+    { "Intersection", (table1, table2, forms, columnName) => RelationalOperations.Intersection(table1, table2) },
+    { "Difference", (table1, table2, forms, columnName) => RelationalOperations.Difference(table1, table2, forms) },
+    { "CartesianProduct", (table1, table2, forms, columnName) => RelationalOperations.CartesianProduct(table1, table2) },
+    //{ "Select", (table1, table2, forms, columnName) => RelationalOperations.Select(table1, table2, forms, columnName) },
+    //{ "Project", (table1, table2, forms, columnName) => RelationalOperations.Project(table1, table2, forms, columnName) },
+    { "Divide", (tables, table2, forms, columnName) => RelationalOperations.Divide(table1, table2) },
+    { "InnerJoin", (table1, table2, forms, columnName) => RelationalOperations.InnerJoin(table1, table2, columnName) },
+    { "LeftJoin", (table1, table2, forms, columnName) => RelationalOperations.LeftJoin(table1, table2, columnName) },
+    { "RightJoin", (table1, table2, forms, columnName) => RelationalOperations.RightJoin(table1, table2, columnName) },
+};
+
+
 
         }
 
@@ -63,6 +77,16 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="e"></param>
         private void FillInAutomaticallyButton_Click(object sender, EventArgs e)
         {
+            auto++;
+            if (auto > 1)
+            {
+                DialogResult result = MessageBox.Show("Внимание! При повторном заполнении все сбросится до исходного состояния", "Предупреждение", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+                if (result == DialogResult.Cancel)
+                {
+                    return;
+                }
+            }
+
             table1 = new Table(namesColumns);
             table1.FillInAutomatically();
             table2 = new Table(namesColumns);
@@ -80,11 +104,6 @@ namespace RelationalAlgebraWinFormsApp
         {
             if (once)
             {
-                MessageBox.Show("Активирован ручной режим. Теперь доступно редактирование полей и добавление записей в меню.");
-                добавитьСтрокуToolStripMenuItem.Visible = true;
-                добавитьToolStripMenuItem.Visible = true;
-                dataGridView1.ReadOnly = false;
-                dataGridView2.ReadOnly = false;
                 once = false;
                 FillInManuallyButton.Enabled = false;
             }
@@ -114,7 +133,7 @@ namespace RelationalAlgebraWinFormsApp
                 MessageBox.Show("Таблицы не созданы!", "Предупреждение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
-            OperationSelectionForm operationSelectionForm = new OperationSelectionForm();
+            operationSelectionForm = new OperationSelectionForm(table1, table2);
             operationSelectionForm.ShowDialog();
             selectedOperation = operationSelectionForm.GetSelectedOperation();
             if (operationSelectionForm.GetForms() != "")
@@ -126,16 +145,145 @@ namespace RelationalAlgebraWinFormsApp
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        private void DisplayResultTableDataGridView(Table result)
+        {
+            // Create a new DataGridView
+            DataGridView resultDataGridView = new DataGridView();
+
+            // Set the design for DataGridView
+            DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(255, 255, 255),
+                ForeColor = Color.Black,
+                Font = new Font("Segoe UI", 9),
+                SelectionBackColor = Color.FromArgb(220, 235, 252),
+                SelectionForeColor = Color.Black
+            };
+            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle
+            {
+                BackColor = Color.FromArgb(240, 240, 240),
+                ForeColor = Color.Black,
+                Font = new Font("Segoe UI", 9, FontStyle.Bold)
+            };
+            resultDataGridView.ColumnHeadersDefaultCellStyle = headerStyle;
+            resultDataGridView.DefaultCellStyle = dataGridViewCellStyle;
+            resultDataGridView.GridColor = Color.FromArgb(100, 100, 100);
+            resultDataGridView.BackgroundColor = Color.FromArgb(40, 40, 40);
+            resultDataGridView.BorderStyle = BorderStyle.None;
+            resultDataGridView.ReadOnly = true;
+            // Set DataGridView properties
+            resultDataGridView.Dock = DockStyle.Fill;
+            resultDataGridView.AllowUserToAddRows = false;
+            resultDataGridView.AllowUserToDeleteRows = false;
+            resultDataGridView.AllowUserToResizeRows = false;
+            resultDataGridView.RowHeadersVisible = false;
+            resultDataGridView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            resultDataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+
+            // Create columns in the DataGridView
+            foreach (var item in result.columnsNames)
+            {
+                resultDataGridView.Columns.Add(item, item);
+            }
+
+            // Add rows to the DataGridView
+            foreach (var value in result.data_obj)
+            {
+                resultDataGridView.Rows.Add(value);
+            }
+
+            // Clear the ResultPanel and add the new DataGridView to it
+            ResultPanel.Controls.Clear();
+            ResultPanel.Controls.Add(resultDataGridView);
+
+            // Set the ResultPanel properties
+            ResultPanel.AutoSize = true;
+            ResultPanel.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+        }
+
         private void ShowResultButton_Click(object sender, EventArgs e)
         {
-            Table result = PerformOperation(selectedOperation);
             if (partiallyFilled)
             {
                 MessageBox.Show("Пожалуйста, сначала выберите операцию.");
                 return;
             }
-            ResultForm resultForm = new ResultForm(result);
-            resultForm.ShowDialog();
+            Table result = PerformOperation(selectedOperation);
+
+            if (result != null)
+            {
+                DisplayResultTableDataGridView(result);
+                if (!doNotShowSaveMsgBox) // если флаг не установлен, показываем MessageBox
+                {
+                    if (selectedOperation == lastOperation)
+                    {
+                        return;
+                    }
+                    lastOperation = selectedOperation; // обновляем последнюю выполненную операцию
+                    DialogResult dialogResult = MessageBox.Show("Хотите ли вы сохранить результат в файл?", "Сохранение результата", MessageBoxButtons.YesNoCancel);
+
+                    if (dialogResult == DialogResult.Yes)
+                    {
+                        SaveResultToFile(result);
+                    }
+                    else if (dialogResult == DialogResult.Cancel)
+                    {
+                        doNotShowSaveMsgBox = true; // если пользователь нажимает "Больше не показывать", устанавливаем флаг
+                    }
+                }
+            }
+        }
+
+        private void SaveResultToFile(Table result)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog
+            {
+                Filter = "Text File|*.txt|JSON File|*.json",
+                Title = "Сохранить результат"
+            };
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (saveFileDialog.FilterIndex)
+                {
+                    case 1:
+                        SaveResultToTxt(result, saveFileDialog.FileName);
+                        break;
+                    case 2:
+                        SaveResultToJson(result, saveFileDialog.FileName);
+                        break;
+                }
+            }
+        }
+
+        private void SaveResultToTxt(Table result, string fileName)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            // Записываем имена столбцов
+            foreach (var columnName in result.columnsNames)
+            {
+                stringBuilder.Append($"{columnName}\t");
+            }
+            stringBuilder.AppendLine();
+
+            // Записываем данные
+            foreach (var row in result.data_obj)
+            {
+                foreach (var cell in row)
+                {
+                    stringBuilder.Append($"{cell.ToString()}\t");
+                }
+                stringBuilder.AppendLine();
+            }
+
+            File.WriteAllText(fileName, stringBuilder.ToString());
+        }
+
+        private void SaveResultToJson(Table result, string fileName)
+        {
+            string json = JsonConvert.SerializeObject(result, Newtonsoft.Json.Formatting.Indented);
+            File.WriteAllText(fileName, json);
         }
 
         /// <summary>
@@ -146,7 +294,11 @@ namespace RelationalAlgebraWinFormsApp
         private void сохранитьToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Table result = PerformOperation(selectedOperation);
-           
+
+            if (result != null)
+            {
+                SaveResultToFile(result);
+            }
         }
 
         /// <summary>
@@ -155,80 +307,42 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="mode"></param>
         private void PopulateDataGridView(Fill mode)
         {
-            DataGridViewCellStyle dataGridViewCellStyle = new DataGridViewCellStyle
+            DataGridViewDesignHelper.ApplyDesign(TabelOne);
+            DataGridViewDesignHelper.ApplyDesign(TabelTwo);
+
+            TabelOne.Rows.Clear();
+            TabelOne.Columns.Clear();
+
+            foreach (var item in table1.columnsNames)
             {
-                BackColor = Color.FromArgb(255, 255, 255),
-                ForeColor = Color.Black,
-                Font = new Font("Segoe UI", 9),
-                SelectionBackColor = Color.FromArgb(220, 235, 252),
-                SelectionForeColor = Color.Black
-            };
-
-            DataGridViewCellStyle headerStyle = new DataGridViewCellStyle
-            {
-                BackColor = Color.FromArgb(240, 240, 240),
-                ForeColor = Color.Black,
-                Font = new Font("Segoe UI", 9, FontStyle.Bold)
-            };
-
-            dataGridView1.ColumnHeadersDefaultCellStyle = headerStyle;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle;
-            dataGridView1.GridColor = Color.FromArgb(100, 100, 100);
-            dataGridView1.BackgroundColor = Color.FromArgb(40, 40, 40);
-            dataGridView1.BorderStyle = BorderStyle.None;
-
-
-            dataGridView2.ColumnHeadersDefaultCellStyle = headerStyle;
-            dataGridView2.DefaultCellStyle = dataGridViewCellStyle;
-            dataGridView2.GridColor = Color.FromArgb(100, 100, 100);
-            dataGridView2.BackgroundColor = Color.FromArgb(40, 40, 40);
-            dataGridView2.BorderStyle = BorderStyle.None;
-
-
-            dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Clear();
-
-            foreach (var item in table1.columsNames)
-            {
-                dataGridView1.Columns.Add(item, item);
+                TabelOne.Columns.Add(item, item);
             }
 
-            if (mode == Fill.Auto && once)
-            {
-                dataGridView1.ReadOnly = true;
-                dataGridView2.ReadOnly = true;
-            }
-            else
-            {
-                dataGridView1.ReadOnly = false;
-                dataGridView2.ReadOnly = false;
-            }
-            dataGridView1.AllowUserToAddRows = false;
+            TabelOne.AllowUserToAddRows = false;
 
             foreach (var value in table1.data_obj)
             {
-                dataGridView1.Rows.Add(Array.ConvertAll(value, e => e.ToString()));
+                TabelOne.Rows.Add(Array.ConvertAll(value, e => e.ToString()));
             }
 
-            dataGridView2.Rows.Clear();
-            dataGridView2.Columns.Clear();
+            TabelTwo.Rows.Clear();
+            TabelTwo.Columns.Clear();
 
-            foreach (var item in table2.columsNames)
+            foreach (var item in table2.columnsNames)
             {
-                dataGridView2.Columns.Add(item, item);
+                TabelTwo.Columns.Add(item, item);
             }
 
-            dataGridView2.AllowUserToAddRows = false;
+            TabelTwo.AllowUserToAddRows = false;
             foreach (var value in table2.data_obj)
             {
-                dataGridView2.Rows.Add(Array.ConvertAll(value, e => e.ToString()));
+                TabelTwo.Rows.Add(Array.ConvertAll(value, e => e.ToString()));
             }
-
         }
 
 
         /// <summary>
-        /// Динамическая функция которая возвращает результат операции. Динамическая, так как количество столбцов могут быть разными для операций
+        /// Функция которая возвращает результат операции. Динамическая, так как количество столбцов могут быть разными для операций
         /// </summary>
         /// <param name="operation"></param>
         /// <returns></returns>
@@ -236,7 +350,20 @@ namespace RelationalAlgebraWinFormsApp
         {
             if (operationDelegates.ContainsKey(operation))
             {
-                return operationDelegates[operation](table1, table2, forms);
+                
+                if (operation == "InnerJoin" || operation == "LeftJoin" || operation == "RightJoin")
+                {
+                    string columnName = operationSelectionForm.GetSelectedAttribute();
+                    if (columnName != null)
+                        return operationDelegates[operation](table1, table2, forms, columnName);
+                    else
+                        return null;
+                }
+                else
+                {
+                    string columnName = "";
+                    return operationDelegates[operation](table1, table2, forms, columnName);
+                }
             }
             else
             {
@@ -268,6 +395,32 @@ namespace RelationalAlgebraWinFormsApp
             Table result = RelationalOperations.CartesianProduct(table1, table2);
             return result;
         }
+
+        public static Table InnerJoin(Table table1, Table table2, string columnNameJoin)
+        {
+            Table result = RelationalOperations.InnerJoin(table1, table2, columnNameJoin);
+            return result;
+        }
+
+        public static Table LeftJoin(Table table1, Table table2, string columnNameJoin)
+        {
+            Table result = RelationalOperations.LeftJoin(table1, table2, columnNameJoin);
+            return result;
+        }
+
+        public static Table RightJoin(Table table1, Table table2, string columnNameJoin)
+        {
+            Table result = RelationalOperations.RightJoin(table1, table2, columnNameJoin);
+            return result;
+        }
+
+        public static Table Divide(Table table1, Table table2)
+        {
+            Table result = RelationalOperations.Divide(table1, table2);
+            return result;
+        }
+
+
         /// <summary>
         /// Функция нужна для отслеживания изменений в ячейках таблицы 1
         /// </summary>
@@ -278,23 +431,21 @@ namespace RelationalAlgebraWinFormsApp
             if (e.RowIndex >= 0)
             {
                 int id;
-                string name;
-                string company;
 
                 // Retrieve the ID value from the first column
-                if (dataGridView1.Rows[e.RowIndex].Cells[0].Value != null &&
-                    int.TryParse(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), out id))
+                if (TabelOne.Rows[e.RowIndex].Cells[0].Value != null &&
+                    int.TryParse(TabelOne.Rows[e.RowIndex].Cells[0].Value.ToString(), out id))
                 {
                     // Retrieve the values of all other columns
                     List<object> values = new List<object>();
-                    for (int i = 1; i < dataGridView1.Columns.Count; i++)
+                    for (int i = 1; i < TabelOne.Columns.Count; i++)
                     {
-                        values.Add(dataGridView1.Rows[e.RowIndex].Cells[i].Value);
+                        values.Add(TabelOne.Rows[e.RowIndex].Cells[i].Value);
                     }
 
                     // Create an undo command and add it to the stack
                     int rowIndex = e.RowIndex;
-                    string columnName = dataGridView1.Columns[e.ColumnIndex].Name;
+                    string columnName = TabelOne.Columns[e.ColumnIndex].Name;
                     object[] previousValues = table1.GetRows()[e.RowIndex];
                     object[] currentValues = new object[values.Count + 1];
                     currentValues[0] = id;
@@ -302,7 +453,7 @@ namespace RelationalAlgebraWinFormsApp
                     {
                         currentValues[i + 1] = values[i];
                     }
-                    var command = new UndoCommand(dataGridView1, rowIndex, e.ColumnIndex, previousValues, currentValues);
+                    var command = new UndoCommand(TabelOne, rowIndex, e.ColumnIndex, previousValues, currentValues);
                     _undoStack.Execute(rowIndex, columnName, command);
 
                     // Update the corresponding row in the table
@@ -317,7 +468,7 @@ namespace RelationalAlgebraWinFormsApp
                 else
                 {
                     MessageBox.Show("Неверное значение ID!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dataGridView1.Rows[e.RowIndex].Cells[0].Value = table1.GetRows()[e.RowIndex][0];
+                    TabelOne.Rows[e.RowIndex].Cells[0].Value = table1.GetRows()[e.RowIndex][0];
                     return;
                 }
             }
@@ -332,23 +483,21 @@ namespace RelationalAlgebraWinFormsApp
             if (e.RowIndex >= 0)
             {
                 int id;
-                string name;
-                string company;
 
                 // Retrieve the ID value from the first column
-                if (dataGridView2.Rows[e.RowIndex].Cells[0].Value != null &&
-                    int.TryParse(dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString(), out id))
+                if (TabelTwo.Rows[e.RowIndex].Cells[0].Value != null &&
+                    int.TryParse(TabelTwo.Rows[e.RowIndex].Cells[0].Value.ToString(), out id))
                 {
                     // Retrieve the values of all other columns
                     List<object> values = new List<object>();
-                    for (int i = 1; i < dataGridView2.Columns.Count; i++)
+                    for (int i = 1; i < TabelTwo.Columns.Count; i++)
                     {
-                        values.Add(dataGridView2.Rows[e.RowIndex].Cells[i].Value);
+                        values.Add(TabelTwo.Rows[e.RowIndex].Cells[i].Value);
                     }
 
                     // Create an undo command and add it to the stack
                     int rowIndex = e.RowIndex;
-                    string columnName = dataGridView2.Columns[e.ColumnIndex].Name;
+                    string columnName = TabelTwo.Columns[e.ColumnIndex].Name;
                     object[] previousValues = table2.GetRows()[e.RowIndex];
                     object[] currentValues = new object[values.Count + 1];
                     currentValues[0] = id;
@@ -356,7 +505,7 @@ namespace RelationalAlgebraWinFormsApp
                     {
                         currentValues[i + 1] = values[i];
                     }
-                    var command = new UndoCommand(dataGridView2, rowIndex, e.ColumnIndex, previousValues, currentValues);
+                    var command = new UndoCommand(TabelTwo, rowIndex, e.ColumnIndex, previousValues, currentValues);
                     _undoStack2.Execute(rowIndex, columnName, command);
 
                     // Update the corresponding row in the table
@@ -371,7 +520,7 @@ namespace RelationalAlgebraWinFormsApp
                 else
                 {
                     MessageBox.Show("Неверное значение ID!", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    dataGridView2.Rows[e.RowIndex].Cells[0].Value = table2.GetRows()[e.RowIndex][0];
+                    TabelTwo.Rows[e.RowIndex].Cells[0].Value = table2.GetRows()[e.RowIndex][0];
                     return;
                 }
             }
@@ -386,16 +535,16 @@ namespace RelationalAlgebraWinFormsApp
         {
             if (e.Control && e.KeyCode == Keys.C)
             {
-                CopySelectionToClipboard(dataGridView1);
+                CopySelectionToClipboard(TabelOne);
             }
-            else if (e.Control && e.KeyCode == Keys.V && dataGridView1.ReadOnly == false && dataGridView2.ReadOnly == false)
+            else if (e.Control && e.KeyCode == Keys.V && TabelOne.ReadOnly == false && TabelTwo.ReadOnly == false)
             {
-                PasteClipboardValues(dataGridView1);
+                PasteClipboardValues(TabelOne);
             }
             else if(e.Control && e.KeyCode == Keys.Z)
             {
-                int rowIndex = dataGridView1.CurrentCell.RowIndex;
-                string columnIndex = dataGridView1.Columns[dataGridView1.CurrentCell.ColumnIndex].Name;
+                int rowIndex = TabelOne.CurrentCell.RowIndex;
+                string columnIndex = TabelOne.Columns[TabelOne.CurrentCell.ColumnIndex].Name;
                 _undoStack.Undo(rowIndex, columnIndex);
                 _undoStack.Pop(rowIndex, columnIndex);
             }
@@ -453,7 +602,7 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="e"></param>
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            dataGridView1.CurrentCell = dataGridView1.Rows[e.RowIndex].Cells[0];
+            TabelOne.CurrentCell = TabelOne.Rows[e.RowIndex].Cells[0];
         }
 
         /// <summary>
@@ -463,7 +612,7 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="e"></param>
         private void dataGridView2_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
-            dataGridView2.CurrentCell = dataGridView2.Rows[e.RowIndex].Cells[0];
+            TabelTwo.CurrentCell = TabelTwo.Rows[e.RowIndex].Cells[0];
         }
 
         /// <summary>
@@ -475,16 +624,16 @@ namespace RelationalAlgebraWinFormsApp
         {
             if (e.Control && e.KeyCode == Keys.C)
             {
-                CopySelectionToClipboard(dataGridView2);
+                CopySelectionToClipboard(TabelTwo);
             }
-            else if (e.Control && e.KeyCode == Keys.V && dataGridView1.ReadOnly == false && dataGridView2.ReadOnly == false)
+            else if (e.Control && e.KeyCode == Keys.V && TabelOne.ReadOnly == false && TabelTwo.ReadOnly == false)
             {
-                PasteClipboardValues(dataGridView2);
+                PasteClipboardValues(TabelTwo);
             }
             else if (e.Control && e.KeyCode == Keys.Z)
             {
-                int rowIndex = dataGridView2.CurrentCell.RowIndex;
-                string columnIndex = dataGridView2.Columns[dataGridView2.CurrentCell.ColumnIndex].Name;
+                int rowIndex = TabelTwo.CurrentCell.RowIndex;
+                string columnIndex = TabelTwo.Columns[TabelTwo.CurrentCell.ColumnIndex].Name;
                 _undoStack2.Undo(rowIndex, columnIndex);
                 _undoStack2.Pop(rowIndex, columnIndex);
             }
@@ -492,50 +641,66 @@ namespace RelationalAlgebraWinFormsApp
 
         private void леваяТаблицаToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            AddColum newColumName = new AddColum();
-            newColumName.ShowDialog();
-            newColmName = newColumName.getColumName();
-            string cleanedString = newColmName.Trim().Replace("\n", "");
-            if (cleanedString != "")
+            if (!table1.IsEmpty())
             {
-                for (int i = 0; i < table1.columsNames.Length; i++)
+                AddColum newColumName = new AddColum(flag = false);
+                newColumName.ShowDialog();
+                newColmName = newColumName.getColumName();
+                string cleanedString = newColmName.Trim().Replace("\n", "");
+                if (cleanedString != "")
                 {
-                    if (cleanedString == table1.columsNames[i])
+                    for (int i = 0; i < table1.columnsNames.Length; i++)
                     {
-                        MessageBox.Show("Столбец с таким названием уже есть !");
-                        return;
+                        if (cleanedString == table1.columnsNames[i])
+                        {
+                            MessageBox.Show("Столбец с таким названием уже есть !");
+                            return;
+                        }
                     }
+                    table1.AddColumn(cleanedString);
+                    PopulateDataGridView(Fill.Manual);
                 }
-                table1.AddColumn(cleanedString);
-                PopulateDataGridView(Fill.Manual);
             }
+            else
+                MessageBox.Show("Вы не заполнили таблицу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void праваяТаблицаToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            AddColum newColumName = new AddColum();
-            newColumName.ShowDialog();
-            newColmName = newColumName.getColumName();
-            string cleanedString = newColmName.Trim().Replace("\n", "");
-            if (cleanedString != "")
+            if (!table2.IsEmpty())
             {
-                for (int i = 0; i < table2.columsNames.Length; i++)
+                AddColum newColumName = new AddColum(flag = false);
+                newColumName.ShowDialog();
+                newColmName = newColumName.getColumName();
+                string cleanedString = newColmName.Trim().Replace("\n", "");
+                if (cleanedString != "")
                 {
-                    if (cleanedString == table2.columsNames[i])
+                    for (int i = 0; i < table2.columnsNames.Length; i++)
                     {
-                        MessageBox.Show("Столбец с таким названием уже есть !");
-                        return;
+                        if (cleanedString == table2.columnsNames[i])
+                        {
+                            MessageBox.Show("Столбец с таким названием уже есть !");
+                            return;
+                        }
                     }
+                    table2.AddColumn(cleanedString);
+                    PopulateDataGridView(Fill.Manual);
                 }
-                table2.AddColumn(cleanedString);
-                PopulateDataGridView(Fill.Manual);
             }
+            else
+                MessageBox.Show("Вы не заполнили таблицу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void информацияToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Обучающее приложение по \"Реляционной алгебре\"\nID - первинчый ключ. Для редактирования таблицы нужно активировать режим \"Ручное заполнение\"");
+            MessageBox.Show("Обучающее приложение по \"Реляционной алгебре\"\n");
         }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
 
         /// <summary>
         /// Функция добавления строки для левой таблицы
@@ -544,8 +709,13 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="e"></param>
         private void леваяТаблицаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            table1.AddRow();
-            PopulateDataGridView(Fill.Manual);
+            if (!table1.IsEmpty())
+            {
+                table1.AddRow();
+                PopulateDataGridView(Fill.Manual);
+            }
+            else
+                MessageBox.Show("Вы не заполнили таблицу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -555,8 +725,13 @@ namespace RelationalAlgebraWinFormsApp
         /// <param name="e"></param>
         private void праваяТаблицаToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            table2.AddRow();
-            PopulateDataGridView(Fill.Manual);
+            if (!table2.IsEmpty())
+            {
+                table2.AddRow();
+                PopulateDataGridView(Fill.Manual);
+            }
+            else
+                MessageBox.Show("Вы не заполнили таблицу", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 }

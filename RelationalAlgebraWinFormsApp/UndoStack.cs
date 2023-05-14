@@ -11,6 +11,13 @@ namespace RelationalAlgebraWinFormsApp
     {
         private Dictionary<string, Stack<ICommand>> _commands = new Dictionary<string, Stack<ICommand>>();
 
+        public MainForm MainForm
+        {
+            get => default;
+            set
+            {
+            }
+        }
 
         public void Execute(int rowIndex, string columnName, ICommand command)
         {
