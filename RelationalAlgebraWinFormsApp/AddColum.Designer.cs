@@ -70,10 +70,12 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "AddColum";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "AddColum";
-            this.Load += new System.EventHandler(this.AddColum_Load);
+            this.Text = "Редактирование отношений";
+            this.Load += new System.EventHandler(this.AddColum_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

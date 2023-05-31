@@ -66,6 +66,12 @@ namespace RelationalAlgebraWinFormsApp
             data_obj.Add(row);
         }
 
+        public void AddRowFun(object[] row)
+        {
+            data_obj.Add(row);
+        }
+
+
         public void RewriteRow(object[] rowValues, int RowIdx)
         {
             if (rowValues == null || rowValues.Length == 0) throw new ArgumentException();
@@ -159,5 +165,33 @@ namespace RelationalAlgebraWinFormsApp
         {
             return data_obj;
         }
+
+        public void RemoveRow(int rowIndex)
+        {
+            if (rowIndex < data_obj.Count)
+            {
+                data_obj.RemoveAt(rowIndex);
+            }
+        }
+
+        public void RemoveColumn(int columnIndex)
+        {
+            if (columnIndex < columnsNames.Length)
+            {
+                // Удаляем имя столбца
+                var columnList = columnsNames.ToList();
+                columnList.RemoveAt(columnIndex);
+                columnsNames = columnList.ToArray();
+
+                // Удаляем данные столбца
+                for (int i = 0; i < data_obj.Count; i++)
+                {
+                    var rowList = data_obj[i].ToList();
+                    rowList.RemoveAt(columnIndex);
+                    data_obj[i] = rowList.ToArray();
+                }
+            }
+        }
+
     }
 }

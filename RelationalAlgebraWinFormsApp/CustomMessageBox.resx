@@ -117,47 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="menuStrip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="EditTableThree.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA68AAAOvAGVvHJJAAAAB3RJ
-        TUUH5wUYESEkN6BJ7wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEESURBVDhP
-        zdS7agJRFIXhEzARIY3GSyOkjogvIEEwEB/AVgyxDYSI6RQvIZImComNaKmlPoUv5r8GpvHCnDlauOBD
-        DsqaPdthzAnJ4BsTDHEH5yQwwg+iKCKPW4SOJtFUDbyhhisUMECoJNFBC23c4x0qjeEP1lFZFxXvZMwL
-        5lCpJtXta6dW2S3L4Qt1aNJXjJFGYA6VaRp9Kp/QTvVHBSao7BnaqdUjY1Om7/W7wFxuWQpnK7vGI568
-        036ZLhJqsg9kvdOJZXHo4Tx2m6HKlCoWuMEDnHfmp4kp+viF82R+ZiihjB4icJrMzwr/UKkmXUI7dSpT
-        NlhDryLdvnbq+Do3ZgsO8TS0PTSiKAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="EditTableTwo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA69AAAOvQFH+5CtAAAAB3RJ
-        TUUH5wUYESEkN6BJ7wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEESURBVDhP
-        zdS7agJRFIXhEzARIY3GSyOkjogvIEEwEB/AVgyxDYSI6RQvIZImComNaKmlPoUv5r8GpvHCnDlauOBD
-        DsqaPdthzAnJ4BsTDHEH5yQwwg+iKCKPW4SOJtFUDbyhhisUMECoJNFBC23c4x0qjeEP1lFZFxXvZMwL
-        5lCpJtXta6dW2S3L4Qt1aNJXjJFGYA6VaRp9Kp/QTvVHBSao7BnaqdUjY1Om7/W7wFxuWQpnK7vGI568
-        036ZLhJqsg9kvdOJZXHo4Tx2m6HKlCoWuMEDnHfmp4kp+viF82R+ZiihjB4icJrMzwr/UKkmXUI7dSpT
-        NlhDryLdvnbq+Do3ZgsO8TS0PTSiKAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="EditTableOne.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAABGdBTUEAALGPC/xhBQAAACBjSFJNAAB6
-        JgAAgIQAAPoAAACA6AAAdTAAAOpgAAA6mAAAF3CculE8AAAACXBIWXMAAA6/AAAOvwE4BVMkAAAAB3RJ
-        TUUH5wUYESEkN6BJ7wAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAEESURBVDhP
-        zdS7agJRFIXhEzARIY3GSyOkjogvIEEwEB/AVgyxDYSI6RQvIZImComNaKmlPoUv5r8GpvHCnDlauOBD
-        DsqaPdthzAnJ4BsTDHEH5yQwwg+iKCKPW4SOJtFUDbyhhisUMECoJNFBC23c4x0qjeEP1lFZFxXvZMwL
-        5lCpJtXta6dW2S3L4Qt1aNJXjJFGYA6VaRp9Kp/QTvVHBSao7BnaqdUjY1Om7/W7wFxuWQpnK7vGI568
-        036ZLhJqsg9kvdOJZXHo4Tx2m6HKlCoWuMEDnHfmp4kp+viF82R+ZiihjB4icJrMzwr/UKkmXUI7dSpT
-        NlhDryLdvnbq+Do3ZgsO8TS0PTSiKAAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <metadata name="$this.TrayHeight" type="System.Int32, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>65</value>
-  </metadata>
 </root>

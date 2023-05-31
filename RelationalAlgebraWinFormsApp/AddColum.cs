@@ -31,14 +31,12 @@ namespace RelationalAlgebraWinFormsApp
             return columName;
         }
 
-        private void AddColum_Load(object sender, EventArgs e)
+        private void AddColum_Load_1(object sender, EventArgs e)
         {
             if (_flag)
             {
-                label1.Text = "Введите название атрибута для соединения";
-                this.Width = 400;
-                button1.Location = new Point(110, 65);
-                textBox1.Location = new Point(85, 33);
+                label1.Text = "Введите атрибут для удаления";
+                label1.Location = new Point(45, 11);
             }
         }
     }

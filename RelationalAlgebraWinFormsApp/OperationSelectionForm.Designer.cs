@@ -31,21 +31,22 @@
             this.UnionButton = new System.Windows.Forms.Button();
             this.IntersectionButton = new System.Windows.Forms.Button();
             this.DifferenceButton = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.InnerJoin = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
+            this.ProjectionButton = new System.Windows.Forms.Button();
+            this.SelectButton = new System.Windows.Forms.Button();
+            this.InnerJoinButton = new System.Windows.Forms.Button();
+            this.CPButton = new System.Windows.Forms.Button();
+            this.DivideButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.LeftJoin = new System.Windows.Forms.Button();
-            this.RightJoin = new System.Windows.Forms.Button();
+            this.FullJoinButton = new System.Windows.Forms.Button();
+            this.RightJoinButton = new System.Windows.Forms.Button();
+            this.LeftJoinButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // UnionButton
             // 
             this.UnionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.UnionButton.Location = new System.Drawing.Point(49, 14);
+            this.UnionButton.Location = new System.Drawing.Point(47, 23);
             this.UnionButton.Name = "UnionButton";
             this.UnionButton.Size = new System.Drawing.Size(129, 58);
             this.UnionButton.TabIndex = 0;
@@ -56,7 +57,7 @@
             // IntersectionButton
             // 
             this.IntersectionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.IntersectionButton.Location = new System.Drawing.Point(49, 78);
+            this.IntersectionButton.Location = new System.Drawing.Point(47, 87);
             this.IntersectionButton.Name = "IntersectionButton";
             this.IntersectionButton.Size = new System.Drawing.Size(129, 58);
             this.IntersectionButton.TabIndex = 1;
@@ -67,7 +68,7 @@
             // DifferenceButton
             // 
             this.DifferenceButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.DifferenceButton.Location = new System.Drawing.Point(49, 142);
+            this.DifferenceButton.Location = new System.Drawing.Point(47, 151);
             this.DifferenceButton.Name = "DifferenceButton";
             this.DifferenceButton.Size = new System.Drawing.Size(129, 58);
             this.DifferenceButton.TabIndex = 2;
@@ -75,110 +76,125 @@
             this.DifferenceButton.UseVisualStyleBackColor = true;
             this.DifferenceButton.Click += new System.EventHandler(this.DifferenceButton_Click_1);
             // 
-            // button1
+            // ProjectionButton
             // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button1.Location = new System.Drawing.Point(546, 115);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(125, 58);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Проекция";
-            this.button1.UseVisualStyleBackColor = true;
+            this.ProjectionButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.ProjectionButton.Location = new System.Drawing.Point(551, 125);
+            this.ProjectionButton.Name = "ProjectionButton";
+            this.ProjectionButton.Size = new System.Drawing.Size(125, 58);
+            this.ProjectionButton.TabIndex = 10;
+            this.ProjectionButton.Text = "Проекция";
+            this.ProjectionButton.UseVisualStyleBackColor = true;
+            this.ProjectionButton.Click += new System.EventHandler(this.button1_Click);
             // 
-            // button2
+            // SelectButton
             // 
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button2.Location = new System.Drawing.Point(546, 51);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(125, 58);
-            this.button2.TabIndex = 5;
-            this.button2.Text = "Выборка";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
+            this.SelectButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.SelectButton.Location = new System.Drawing.Point(551, 61);
+            this.SelectButton.Name = "SelectButton";
+            this.SelectButton.Size = new System.Drawing.Size(125, 58);
+            this.SelectButton.TabIndex = 9;
+            this.SelectButton.Text = "Выборка";
+            this.SelectButton.UseVisualStyleBackColor = true;
+            this.SelectButton.Click += new System.EventHandler(this.button2_Click);
             // 
-            // InnerJoin
+            // InnerJoinButton
             // 
-            this.InnerJoin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.InnerJoin.Location = new System.Drawing.Point(63, 31);
-            this.InnerJoin.Name = "InnerJoin";
-            this.InnerJoin.Size = new System.Drawing.Size(125, 60);
-            this.InnerJoin.TabIndex = 4;
-            this.InnerJoin.Text = "Внутреннее соединение";
-            this.InnerJoin.UseVisualStyleBackColor = true;
-            this.InnerJoin.Click += new System.EventHandler(this.button3_Click);
+            this.InnerJoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.InnerJoinButton.Location = new System.Drawing.Point(61, 19);
+            this.InnerJoinButton.Name = "InnerJoinButton";
+            this.InnerJoinButton.Size = new System.Drawing.Size(125, 60);
+            this.InnerJoinButton.TabIndex = 5;
+            this.InnerJoinButton.Text = "Внутреннее соединение";
+            this.InnerJoinButton.UseVisualStyleBackColor = true;
+            this.InnerJoinButton.Click += new System.EventHandler(this.button3_Click);
             // 
-            // button4
+            // CPButton
             // 
-            this.button4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button4.Location = new System.Drawing.Point(49, 206);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(129, 58);
-            this.button4.TabIndex = 3;
-            this.button4.Text = "Декартово произведение";
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
+            this.CPButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.CPButton.Location = new System.Drawing.Point(47, 215);
+            this.CPButton.Name = "CPButton";
+            this.CPButton.Size = new System.Drawing.Size(129, 58);
+            this.CPButton.TabIndex = 3;
+            this.CPButton.Text = "Декартово произведение";
+            this.CPButton.UseVisualStyleBackColor = true;
+            this.CPButton.Click += new System.EventHandler(this.button4_Click);
             // 
-            // button5
+            // DivideButton
             // 
-            this.button5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button5.Location = new System.Drawing.Point(546, 179);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(125, 58);
-            this.button5.TabIndex = 7;
-            this.button5.Text = "Деление";
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
+            this.DivideButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.DivideButton.Location = new System.Drawing.Point(551, 187);
+            this.DivideButton.Name = "DivideButton";
+            this.DivideButton.Size = new System.Drawing.Size(125, 58);
+            this.DivideButton.TabIndex = 11;
+            this.DivideButton.Text = "Деление";
+            this.DivideButton.UseVisualStyleBackColor = true;
+            this.DivideButton.Click += new System.EventHandler(this.button5_Click);
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.RightJoin);
-            this.groupBox1.Controls.Add(this.LeftJoin);
-            this.groupBox1.Controls.Add(this.InnerJoin);
-            this.groupBox1.Location = new System.Drawing.Point(249, 14);
+            this.groupBox1.Controls.Add(this.FullJoinButton);
+            this.groupBox1.Controls.Add(this.RightJoinButton);
+            this.groupBox1.Controls.Add(this.LeftJoinButton);
+            this.groupBox1.Controls.Add(this.InnerJoinButton);
+            this.groupBox1.Location = new System.Drawing.Point(249, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(277, 250);
+            this.groupBox1.Size = new System.Drawing.Size(277, 288);
             this.groupBox1.TabIndex = 8;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Соединения";
             // 
-            // LeftJoin
+            // FullJoinButton
             // 
-            this.LeftJoin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.LeftJoin.Location = new System.Drawing.Point(63, 97);
-            this.LeftJoin.Name = "LeftJoin";
-            this.LeftJoin.Size = new System.Drawing.Size(125, 60);
-            this.LeftJoin.TabIndex = 5;
-            this.LeftJoin.Text = "Левое соединение";
-            this.LeftJoin.UseVisualStyleBackColor = true;
-            this.LeftJoin.Click += new System.EventHandler(this.LeftJoin_Click);
+            this.FullJoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.FullJoinButton.Location = new System.Drawing.Point(61, 217);
+            this.FullJoinButton.Name = "FullJoinButton";
+            this.FullJoinButton.Size = new System.Drawing.Size(125, 60);
+            this.FullJoinButton.TabIndex = 8;
+            this.FullJoinButton.Text = "Полное соединение";
+            this.FullJoinButton.UseVisualStyleBackColor = true;
+            this.FullJoinButton.Click += new System.EventHandler(this.button3_Click_1);
             // 
-            // RightJoin
+            // RightJoinButton
             // 
-            this.RightJoin.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.RightJoin.Location = new System.Drawing.Point(63, 163);
-            this.RightJoin.Name = "RightJoin";
-            this.RightJoin.Size = new System.Drawing.Size(125, 60);
-            this.RightJoin.TabIndex = 6;
-            this.RightJoin.Text = "Правое соединение";
-            this.RightJoin.UseVisualStyleBackColor = true;
-            this.RightJoin.Click += new System.EventHandler(this.RightJoin_Click);
+            this.RightJoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.RightJoinButton.Location = new System.Drawing.Point(61, 151);
+            this.RightJoinButton.Name = "RightJoinButton";
+            this.RightJoinButton.Size = new System.Drawing.Size(125, 60);
+            this.RightJoinButton.TabIndex = 7;
+            this.RightJoinButton.Text = "Правое соединение";
+            this.RightJoinButton.UseVisualStyleBackColor = true;
+            this.RightJoinButton.Click += new System.EventHandler(this.RightJoin_Click);
+            // 
+            // LeftJoinButton
+            // 
+            this.LeftJoinButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.LeftJoinButton.Location = new System.Drawing.Point(61, 85);
+            this.LeftJoinButton.Name = "LeftJoinButton";
+            this.LeftJoinButton.Size = new System.Drawing.Size(125, 60);
+            this.LeftJoinButton.TabIndex = 6;
+            this.LeftJoinButton.Text = "Левое соединение";
+            this.LeftJoinButton.UseVisualStyleBackColor = true;
+            this.LeftJoinButton.Click += new System.EventHandler(this.LeftJoin_Click);
             // 
             // OperationSelectionForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(702, 269);
+            this.ClientSize = new System.Drawing.Size(702, 298);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button1);
-            this.Controls.Add(this.button2);
+            this.Controls.Add(this.DivideButton);
+            this.Controls.Add(this.CPButton);
+            this.Controls.Add(this.ProjectionButton);
+            this.Controls.Add(this.SelectButton);
             this.Controls.Add(this.DifferenceButton);
             this.Controls.Add(this.IntersectionButton);
             this.Controls.Add(this.UnionButton);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "OperationSelectionForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "OperationSelectionForm";
+            this.Text = "Выбор операций";
             this.groupBox1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -189,13 +205,14 @@
         private System.Windows.Forms.Button UnionButton;
         private System.Windows.Forms.Button IntersectionButton;
         private System.Windows.Forms.Button DifferenceButton;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button InnerJoin;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button ProjectionButton;
+        private System.Windows.Forms.Button SelectButton;
+        private System.Windows.Forms.Button InnerJoinButton;
+        private System.Windows.Forms.Button CPButton;
+        private System.Windows.Forms.Button DivideButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.Button RightJoin;
-        private System.Windows.Forms.Button LeftJoin;
+        private System.Windows.Forms.Button RightJoinButton;
+        private System.Windows.Forms.Button LeftJoinButton;
+        private System.Windows.Forms.Button FullJoinButton;
     }
 }

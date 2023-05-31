@@ -140,32 +140,24 @@ namespace RelationalAlgebraWinFormsApp
             return result;
         }
 
-        public static Table Difference(Table table1, Table table2, int subtractFromTable)
+        public static Table Difference(Table table1, Table table2)
         {
             if (table1.columnsNames.Length != table2.columnsNames.Length ||
                 !Enumerable.SequenceEqual(table1.columnsNames, table2.columnsNames))
             {
                 MessageBox.Show("Имена атрибутов или количество отличаются! Будут пустые ячейки", "Предупреждение",
-    MessageBoxButtons.OK, MessageBoxIcon.Error);
+        MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
             List<string> names = new List<string>();
 
-            if (subtractFromTable == 1)
+            foreach (var item in table1.columnsNames)
             {
-                foreach (var item in table1.columnsNames)
-                {
-                    names.Add(item);
-                }
-            }
-            else
-            {
-                foreach (var item in table2.columnsNames)
-                {
-                    names.Add(item);
-                }
+                names.Add(item);
             }
 
             Table result = new Table(names.ToArray());
+
             foreach (var row1 in table1.data_obj)
             {
                 if (IsEmptyRow(row1))
@@ -183,40 +175,15 @@ namespace RelationalAlgebraWinFormsApp
                     }
                 }
 
-                if (!found && subtractFromTable == 1)
+                if (!found)
                 {
                     result.data_obj.Add(row1);
                 }
             }
 
-            if (subtractFromTable == 2)
-            {
-                foreach (var row2 in table2.data_obj)
-                {
-                    if (IsEmptyRow(row2))
-                    {
-                        continue;
-                    }
-
-                    bool found = false;
-                    foreach (var row1 in table1.data_obj)
-                    {
-                        if (row2.SequenceEqual(row1))
-                        {
-                            found = true;
-                            break;
-                        }
-                    }
-
-                    if (!found)
-                    {
-                        result.data_obj.Add(row2);
-                    }
-                }
-            }
-
             return result;
         }
+
 
 
 
@@ -309,6 +276,85 @@ namespace RelationalAlgebraWinFormsApp
             return Join(table1, table2, columnName, "right");
         }
 
+        public static Table FullJoin(Table table1, Table table2, string columnName)
+        {
+            // Check if the column names exist in both tables
+            if (!table1.columnsNames.Contains(columnName) || !table2.columnsNames.Contains(columnName))
+            {
+                MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
+            }
+
+            int column1Index = Array.IndexOf(table1.columnsNames, columnName);
+            int column2Index = Array.IndexOf(table2.columnsNames, columnName);
+
+            List<string> table1ColumnNames = table1.columnsNames.ToList();
+            List<string> table2ColumnNames = table2.columnsNames.ToList();
+
+            List<string> resultColumnNames = new List<string>();
+            resultColumnNames.AddRange(table1ColumnNames);
+            resultColumnNames.AddRange(table2ColumnNames);
+            Table result = new Table(resultColumnNames.ToArray());
+
+            foreach (var row1 in table1.data_obj)
+            {
+                object column1Value = row1[column1Index];
+                bool row1Matched = table2.data_obj.Any(row2 => row2[column2Index].Equals(column1Value));
+
+                if (row1Matched)
+                {
+                    foreach (var row2 in table2.data_obj)
+                    {
+                        if (column1Value.Equals(row2[column2Index]))
+                        {
+                            object[] resultRow = GetCombinedRowFull(table1, table2, row1, row2, column1Index, column2Index);
+                            result.data_obj.Add(resultRow);
+                        }
+                    }
+                }
+                else
+                {
+                    object[] resultRow = GetCombinedRowFull(table1, table2, row1, null, column1Index, column2Index);
+                    result.data_obj.Add(resultRow);
+                }
+            }
+
+            foreach (var row2 in table2.data_obj)
+            {
+                object column2Value = row2[column2Index];
+                bool row2Matched = table1.data_obj.Any(row1 => row1[column1Index].Equals(column2Value));
+
+                if (!row2Matched)
+                {
+                    object[] resultRow = GetCombinedRowFull(table1, table2, null, row2, column1Index, column2Index);
+                    result.data_obj.Add(resultRow);
+                }
+            }
+
+            return result;
+        }
+
+        private static object[] GetCombinedRowFull(Table table1, Table table2, object[] row1, object[] row2, int column1Index, int column2Index)
+        {
+            object[] resultRow = new object[table1.columnsNames.Length + table2.columnsNames.Length];
+            int resultIndex = 0;
+
+            for (int i = 0; i < table1.columnsNames.Length; i++)
+            {
+                resultRow[resultIndex] = row1 != null ? row1[i] : null;
+                resultIndex++;
+            }
+
+            for (int i = 0; i < table2.columnsNames.Length; i++)
+            {
+                resultRow[resultIndex] = row2 != null ? row2[i] : null;
+                resultIndex++;
+            }
+
+            return resultRow;
+        }
+
+
         private static Table Join(Table table1, Table table2, string columnName, string joinType)
         {
             // Общая логика для всех типов соединений
@@ -316,6 +362,7 @@ namespace RelationalAlgebraWinFormsApp
             {
                 MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах", "Предупреждение",
    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return null;
             }
 
             int column1Index = Array.IndexOf(table1.columnsNames, columnName);
@@ -394,56 +441,111 @@ namespace RelationalAlgebraWinFormsApp
         }
 
 
-        //public static Table Select(Table table1, Table table2, int TableIdx, string columnNames)
-        //{
-        //    Table table = new Table("");
-        //    if (TableIdx == 1)
-        //        table = table1;
-        //    else
-        //        table = table2;
+        public static Table Selection(Table table, string columnName, string operatorType, string threshold)
+        {
+            // Проверяем, существует ли указанный столбец в таблице
+            if (!table.columnsNames.Contains(columnName))
+            {
+                MessageBox.Show($"Атрибут '{columnName}' не существует в таблице.");
+                return null;
+            }
 
-        //    // Create a new table with the selected columns
-        //    Table result = new Table(columnNames);
+            // Получаем индекс столбца
+            int columnIndex = Array.IndexOf(table.columnsNames, columnName);
 
-        //    // Copy the selected data from the original table
-        //    foreach (object[] row in table.data_obj)
-        //    {
-        //        object[] selectedData = new object[columnNames.Length];
-        //        for (int i = 0; i < columnNames.Length; i++)
-        //        {
-        //            int index = table.GetColumnIndex(columnNames[i]);
-        //            selectedData[i] = row[index];
-        //        }
-        //        result.data_obj.Add(selectedData);
-        //    }
+            // Создаем новую таблицу с теми же именами столбцов
+            Table result = new Table(table.columnsNames);
 
-        //    return result;
-        //}
+            // Итерируем по каждой строке исходной таблицы
+            foreach (Object[] row in table.data_obj)
+            {
+                if (columnName == "ID") // если это числовое поле
+                {
+                    int cellValue = Int32.Parse(row[columnIndex].ToString());
+                    int thresholdValue = Int32.Parse(threshold);
 
-        //public static Table Project(Table table1, Table table2, int TableIdx, string columnNames)
-        //{
-        //    Table table = new Table("");
-        //    if (TableIdx == 1)
-        //        table = table1;
-        //    else
-        //        table = table2;
-        //    // Create a new table with the projected columns
-        //    Table result = new Table(columnNames);
+                    switch (operatorType)
+                    {
+                        case ">":
+                            if (cellValue > thresholdValue)
+                                result.AddRowFun(row);
+                            break;
 
-        //    // Copy the projected data from the original table
-        //    foreach (object[] row in table.data_obj)
-        //    {
-        //        object[] projectedData = new object[columnNames.Length];
-        //        for (int i = 0; i < columnNames.Length; i++)
-        //        {
-        //            int index = table.GetColumnIndex(columnNames[i]);
-        //            projectedData[i] = row[index];
-        //        }
-        //        result.data_obj.Add(projectedData);
-        //    }
+                        case "<":
+                            if (cellValue < thresholdValue)
+                                result.AddRowFun(row);
+                            break;
 
-        //    return result;
-        //}
+                        case "=":
+                            if (cellValue == thresholdValue)
+                                result.AddRowFun(row);
+                            break;
+
+                        case ">=":
+                            if (cellValue >= thresholdValue)
+                                result.AddRowFun(row);
+                            break;
+
+                        case "<=":
+                            if (cellValue <= thresholdValue)
+                                result.AddRowFun(row);
+                            break;
+
+                        default:
+                            MessageBox.Show($"Недопустимый оператор: '{operatorType}'");
+                            return null;
+                    }
+                }
+                else // для всех остальных полей используется только оператор '='
+                {
+                    if (operatorType == "=" && row[columnIndex].ToString() == threshold)
+                    {
+                        result.AddRowFun(row);
+                    }
+                    else if (operatorType != "=")
+                    {
+                        MessageBox.Show($"Недопустимый оператор: '{operatorType}' для нечислового столбца");
+                        return null;
+                    }
+                }
+            }
+
+
+            return result;
+        }
+
+
+        public static Table Projection(Table table, params string[] columnNames)
+        {
+            // Проверка на наличие атрибутов в исходной таблице
+            foreach (string columnName in columnNames)
+            {
+                if (!table.columnsNames.Contains(columnName))
+                {
+                    MessageBox.Show($"Атрибут '{columnName}' не найден в таблице", "Предупреждение",
+                        MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return null;
+                }
+            }
+
+            // Создание новой таблицы только с указанными атрибутами
+            Table result = new Table(columnNames);
+
+            foreach (var row in table.data_obj)
+            {
+                List<object> resultRow = new List<object>();
+                foreach (string columnName in columnNames)
+                {
+                    int columnIndex = Array.IndexOf(table.columnsNames, columnName);
+                    resultRow.Add(row[columnIndex]);
+                }
+
+                result.data_obj.Add(resultRow.ToArray());
+            }
+
+            return result;
+        }
+
 
         public static Table Divide(Table table1, Table table2)
         {
