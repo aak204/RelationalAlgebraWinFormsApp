@@ -6,14 +6,14 @@
       <Compartment Name="Methods" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAACAAABAAAACAAAACAAAIAAAAEEAAAAEAAAA=</HashCode>
+      <HashCode>AAAAAACAACAAABAAAACAAAACAAAIAAAAEEAAAAEAAAI=</HashCode>
       <FileName>AddColum.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="RelationalAlgebraWinFormsApp.Choose" Collapsed="true">
     <Position X="3" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQAAAAAAACAAABAAAACAAAACEAAYAAAAAGAAAAAAAAA=</HashCode>
+      <HashCode>AAAAAgAAACEAABAMCCCKAAASNAAAAAIAAAAAoGFBAAE=</HashCode>
       <FileName>Choose.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -32,7 +32,7 @@
       </Delegate>
     </NestedTypes>
     <TypeIdentifier>
-      <HashCode>ISIgECEBGGcAAcxAACCANUBCQAQAKQAAJgABWQAQsCA=</HashCode>
+      <HashCode>AUogFLGBEXaCAdxYRaSBFUDOcdaAbCAAIgl3WyZUsGA=</HashCode>
       <FileName>Обучающее приложение.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -50,12 +50,12 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RelationalAlgebraWinFormsApp.Table">
-    <Position X="11.25" Y="3.25" Width="1.5" />
+    <Position X="12.25" Y="3.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
     </Compartments>
     <TypeIdentifier>
-      <HashCode>AEBAgAAAAAAiAACAAAAAAAQAgQAgBIAQEAAAAgIAAAA=</HashCode>
+      <HashCode>AEBAgAAAAAAiAASAAAAAAAQAgQAgBIAQkAAAAgIAgAA=</HashCode>
       <FileName>Table.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -67,8 +67,16 @@
     <Compartments>
       <Compartment Name="Properties" Collapsed="true" />
     </Compartments>
+    <NestedTypes>
+      <Class Name="RelationalAlgebraWinFormsApp.RelationalOperations.LambdaComparer&lt;T&gt;" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>RelationalOperations.cs</NewMemberFileName>
+        </TypeIdentifier>
+        <Lollipop Position="0.2" />
+      </Class>
+    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAUACAAgAAAAICABAQQAAAAAAAAAAQQAAAAA=</HashCode>
+      <HashCode>AAAAAAABAUACQAgAgAQIAABAQQAAAAAAAAAAASAQQAA=</HashCode>
       <FileName>RelationalOperations.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -76,9 +84,9 @@
     </ShowAsAssociation>
   </Class>
   <Class Name="RelationalAlgebraWinFormsApp.OperationSelectionForm" Collapsed="true">
-    <Position X="8" Y="2.5" Width="2" />
+    <Position X="8.75" Y="2.25" Width="2" />
     <TypeIdentifier>
-      <HashCode>AUgAAAFAACAAABAAAACAAAECAMA4AAEABDAMAAAAAAA=</HashCode>
+      <HashCode>IXAAAAQAADKCABAcAICAoAEiEMw7ACEAAHAMAmAAYAA=</HashCode>
       <FileName>OperationSelectionForm.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -114,6 +122,13 @@
       <Property Name="UndoStack" />
     </ShowAsAssociation>
     <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="RelationalAlgebraWinFormsApp.CombinationOperation" Collapsed="true">
+    <Position X="9" Y="3.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>hAQARkEKASWSghQe6oDNZ0nCDEgKSpqGTmCAYRkU5A8=</HashCode>
+      <FileName>CombinationOperation.cs</FileName>
+    </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
 </ClassDiagram>

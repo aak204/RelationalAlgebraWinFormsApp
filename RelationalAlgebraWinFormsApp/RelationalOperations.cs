@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace RelationalAlgebraWinFormsApp
 {
-    internal class RelationalOperations
+    public class RelationalOperations
     {
         public MainForm.OperationDelegate OperationDelegate
         {
@@ -24,6 +24,39 @@ namespace RelationalAlgebraWinFormsApp
             {
             }
         }
+
+        public class LambdaComparer<T> : IEqualityComparer<T>
+        {
+            private readonly Func<T, T, bool> _lambdaComparer;
+            private readonly Func<T, int> _lambdaHash;
+
+            public LambdaComparer(Func<T, T, bool> lambdaComparer) :
+                this(lambdaComparer, o => 0)
+            {
+            }
+
+            public LambdaComparer(Func<T, T, bool> lambdaComparer, Func<T, int> lambdaHash)
+            {
+                if (lambdaComparer == null)
+                    throw new ArgumentNullException("lambdaComparer");
+                if (lambdaHash == null)
+                    throw new ArgumentNullException("lambdaHash");
+
+                _lambdaComparer = lambdaComparer;
+                _lambdaHash = lambdaHash;
+            }
+
+            public bool Equals(T x, T y)
+            {
+                return _lambdaComparer(x, y);
+            }
+
+            public int GetHashCode(T obj)
+            {
+                return _lambdaHash(obj);
+            }
+        }
+
 
         public static Table Union(Table table1, Table table2)
         {
@@ -549,25 +582,24 @@ namespace RelationalAlgebraWinFormsApp
 
         public static Table Divide(Table table1, Table table2)
         {
-            // Check that table2 has a subset of columns from table1
             if (!table2.columnsNames.All(column => table1.columnsNames.Contains(column)))
             {
-                MessageBox.Show("Все столбцы нижнего отношения должны присутствовать в верхнем отношении", "Предупреждение",
+                MessageBox.Show("Все столбцы второго отношения должны присутствовать в первом отношении", "Предупреждение",
    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
 
-            // Create the result table with the columns not present in table2
+            // Создаем таблицу результатов с колонками, отсутствующими в таблице table2
             string[] resultColumns = table1.columnsNames.Except(table2.columnsNames).ToArray();
             Table result = new Table(resultColumns);
 
-            // For each unique combination of values in the resultColumns of table1
+            // Для каждой уникальной комбинации значений в resultColumns таблицы1
             foreach (var group in table1.data_obj.Select(row => row.Where((val, index) => !table2.columnsNames.Contains(table1.columnsNames[index])).ToArray()).Distinct())
             {
-                // For each row in table2
+                // Для каждой строки в таблице2
                 bool isMaximal = table2.data_obj.All(row2 =>
                 {
-                    // Create a combined row with the values from group and row2
+                    // Создаем комбинированную строку со значениями из group и row2
                     var combinedRow = new object[table1.columnsNames.Length];
                     int i = 0;
                     foreach (string column in table1.columnsNames)
@@ -583,16 +615,20 @@ namespace RelationalAlgebraWinFormsApp
                         i++;
                     }
 
-                    // Check if this combined row is present in table1
+                    // Проверяем, присутствует ли данная объединенная строка в таблице1
                     return table1.data_obj.Any(row1 => row1.SequenceEqual(combinedRow));
                 });
 
-                // If the group is maximal (i.e., it can be combined with every row in table2 and still be present in table1), add it to the result
+                // Если группа максимальна (т.е. может быть объединена с каждой строкой таблицы2 и все еще присутствует в таблице1), добавьте ее к результату
                 if (isMaximal)
                 {
                     result.data_obj.Add(group);
                 }
             }
+            // Удалить дубликаты из таблицы результатов
+            result.data_obj = result.data_obj
+                .Distinct(new LambdaComparer<object[]>((x, y) => x.SequenceEqual(y)))
+                .ToList();
 
             return result;
 

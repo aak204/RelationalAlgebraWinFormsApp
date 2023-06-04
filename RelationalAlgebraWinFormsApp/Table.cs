@@ -17,6 +17,8 @@ namespace RelationalAlgebraWinFormsApp
 
         string[] Names = File.ReadAllLines("Names.txt");
         string[] Companies = File.ReadAllLines("Companies.txt");
+        string[] Projects = File.ReadAllLines("Projects.txt");
+        string[] NameClients = File.ReadAllLines("NameCliens.txt");
 
         private static readonly Random Random = new Random();
 
@@ -43,6 +45,30 @@ namespace RelationalAlgebraWinFormsApp
             {
                 int id = Random.Next(1, 512);
                 string name = Names[Random.Next(0, Names.Length)];
+                string company = Companies[Random.Next(0, Companies.Length)];
+
+                data_obj.Add(new object[] { id, name, company });
+            }
+        }
+
+        public void FillInAutomatically2()
+        {
+            for (int i = 0; i < 13; i++)
+            {
+                int id = Random.Next(1, 512);
+                string name = Projects[Random.Next(0, Names.Length)];
+                string company = Companies[Random.Next(0, Companies.Length)];
+
+                data_obj.Add(new object[] { id, name, company });
+            }
+        }
+
+        public void FillInAutomatically3()
+        {
+            for (int i = 0; i < 13; i++)
+            {
+                int id = Random.Next(1, 512);
+                string name = NameClients[Random.Next(0, Names.Length)];
                 string company = Companies[Random.Next(0, Companies.Length)];
 
                 data_obj.Add(new object[] { id, name, company });

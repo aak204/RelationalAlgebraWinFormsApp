@@ -181,7 +181,7 @@ namespace RelationalAlgebraWinFormsApp
             this.ResultPanel.Location = new System.Drawing.Point(742, 77);
             this.ResultPanel.Name = "ResultPanel";
             this.ResultPanel.Size = new System.Drawing.Size(391, 518);
-            this.ResultPanel.TabIndex = 8;
+            this.ResultPanel.TabIndex = 4;
             // 
             // label1
             // 
@@ -348,7 +348,7 @@ namespace RelationalAlgebraWinFormsApp
             this.CombOperation.Location = new System.Drawing.Point(517, 350);
             this.CombOperation.Name = "CombOperation";
             this.CombOperation.Size = new System.Drawing.Size(149, 52);
-            this.CombOperation.TabIndex = 16;
+            this.CombOperation.TabIndex = 3;
             this.CombOperation.Text = "Комбинации операций";
             this.CombOperation.UseVisualStyleBackColor = true;
             this.CombOperation.Click += new System.EventHandler(this.CombOperation_Click);

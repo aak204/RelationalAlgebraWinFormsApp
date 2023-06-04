@@ -35,7 +35,9 @@ namespace RelationalAlgebraWinFormsApp
         private readonly UndoStack _undoStack = new UndoStack();
         private readonly UndoStack _undoStack2 = new UndoStack();
         private readonly UndoStack _undoStack3 = new UndoStack();
-        private readonly string[] namesColumns = new string[3] { "ID", "ФИО", "КОМПАНИЯ" };
+        private readonly string[] namesColumns = new string[3] { "ID", "ФИО", "Компания" };
+        private readonly string[] namesColumns2 = new string[3] { "ID_Проекта", "Название_проекта", "Компания" };
+        private readonly string[] namesColumns3 = new string[3] { "ID_клиента", "Имя_Клиента", "Компания" };
         public delegate Table OperationDelegate(Table table1, Table table2, Table table3, string form1, string form2, string columnName, string[] AttrNames, string ColNameSelect, string Operator, string Condition);
         public OperationSelectionForm operationSelectionForm;
         private Dictionary<string, OperationDelegate> operationDelegates;
@@ -50,8 +52,8 @@ namespace RelationalAlgebraWinFormsApp
         {
             InitializeComponent();
             table1 = new Table(namesColumns);
-            table2 = new Table(namesColumns);
-            table3 = new Table(namesColumns);
+            table2 = new Table(namesColumns2);
+            table3 = new Table(namesColumns3);
             selectedOperation = "";
             PopulateDataGridView(Fill.Auto);
 
@@ -99,9 +101,13 @@ namespace RelationalAlgebraWinFormsApp
         form1 == "B" && form2 == "C" ? FullJoin(table2, table3, columnName) :
         FullJoin(table1, table3, columnName)},
     { "Projection", (table1, table2, table3, form1, form2, columnName, AttrNames, ColNameSelect, Operator, Condition) =>
-        Projection(table1, AttrNames)},
+        form1 == "A" ? Projection(table1, AttrNames) :
+        form1 == "B" ? Projection(table2, AttrNames) :
+        Projection(table3, AttrNames)},
     { "Select", (table1, table2, table3, form1, form2, columnName, AttrNames, ColNameSelect, Operator, Condition) =>
-        Select(table1, ColNameSelect, Operator, Condition)},
+        form1 == "A" ? Select(table1, ColNameSelect, Operator, Condition) :
+        form1 == "B" ? Select(table2, ColNameSelect, Operator, Condition) :
+        Select(table3, ColNameSelect, Operator, Condition)},
 };
 
 
@@ -127,10 +133,10 @@ namespace RelationalAlgebraWinFormsApp
 
             table1 = new Table(namesColumns);
             table1.FillInAutomatically();
-            table2 = new Table(namesColumns);
-            table2.FillInAutomatically();
-            table3 = new Table(namesColumns);
-            table3.FillInAutomatically();
+            table2 = new Table(namesColumns2);
+            table2.FillInAutomatically2();
+            table3 = new Table(namesColumns3);
+            table3.FillInAutomatically3();
             PopulateDataGridView(Fill.Auto);
         }
 
@@ -845,15 +851,22 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem recordItem = new ToolStripMenuItem("Добавить запись");
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
+                ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
 
                 addItem.Click += AddItem_Click;
                 recordItem.Click += RecordItem_Click;
                 removeItem.Click += RemoveItem_Click;
                 removeRecord.Click += RemoveRecord_Click;
+                saveRecord.Click += SaveRecord_Click;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
+        }
+
+        private void SaveRecord_Click(object sender, EventArgs e)
+        {
+            SaveResultToFile(table1);
         }
 
         private void EditTableTwo_MouseClick(object sender, MouseEventArgs e)
@@ -865,15 +878,22 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem recordItem = new ToolStripMenuItem("Добавить запись");
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
+                ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
 
                 addItem.Click += AddItem_ClickTwo;
                 recordItem.Click += RecordItem_ClickTwo;
                 removeItem.Click += RemoveItem_ClickTwo;
                 removeRecord.Click += RemoveRecord_ClickTwo;
+                saveRecord.Click += SaveRecord_ClickTwo;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
+        }
+
+        private void SaveRecord_ClickTwo(object sender, EventArgs e)
+        {
+            SaveResultToFile(table2);
         }
 
         private void EditTableThree_MouseClick(object sender, MouseEventArgs e)
@@ -885,15 +905,22 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem recordItem = new ToolStripMenuItem("Добавить запись");
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
+                ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
 
                 addItem.Click += AddItem_ClickThree;
                 recordItem.Click += RecordItem_ClickThree;
                 removeItem.Click += RemoveItem_ClickThree;
                 removeRecord.Click += RemoveRecord_ClickThree;
+                saveRecord.Click += SaveRecord_ClickThree;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
+        }
+
+        private void SaveRecord_ClickThree(object sender, EventArgs e)
+        {
+            SaveResultToFile(table3);
         }
 
         private void AddColumn(Table table)

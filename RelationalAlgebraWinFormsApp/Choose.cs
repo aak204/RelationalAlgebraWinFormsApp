@@ -37,21 +37,23 @@ namespace RelationalAlgebraWinFormsApp
             toolTip.ReshowDelay = 500; // Задержка перед повторным показом подсказки
 
             // Привязываем события MouseEnter и MouseLeave к текстовому полю
-            GetText.MouseEnter += TextBox1_MouseEnter;
-            GetText.MouseLeave += TextBox1_MouseLeave;
+            GetText.MouseEnter += GetText_MouseEnter;
+            GetText.MouseLeave += GetText_MouseLeave;
         }
 
-        private void TextBox1_MouseEnter(object sender, EventArgs e)
+        private void GetText_MouseEnter(object sender, EventArgs e)
         {
             // Отображаем подсказку рядом с текстовым полем
             if (operation == "Select")
                 toolTip.Show("Для поля ID доступны следующие операции: =, >, <, >=, <=.\nДля остальных полей только: =.\nПример: ID > 5, ФИО = Морозов.", GetText, GetText.Width, 0);
+            if (operation == "Projection")
+                toolTip.Show("Если хотите ввести несолько атрибутов разбейте их запятыми.\nПример: ID, ФИО.", GetText, GetText.Width, 0);
         }
 
-        private void TextBox1_MouseLeave(object sender, EventArgs e)
+        private void GetText_MouseLeave(object sender, EventArgs e)
         {
             // Скрываем подсказку
-            if (operation == "Select")
+            if (operation == "Select" || operation == "Projection")
                 toolTip.Hide(GetText);
         }
 
@@ -181,8 +183,6 @@ namespace RelationalAlgebraWinFormsApp
             return (parts[0], parts[1], parts[2]);
         }
 
-
-
         public (string, string) GetForm()
         {
             string Value1 = null, Value2 = null;
@@ -214,7 +214,7 @@ namespace RelationalAlgebraWinFormsApp
                 Value1 = "A";
             else if (B.Checked)
                 Value1 = "B";
-            else
+            else if (C.Checked)
                 Value1 = "C";
 
             return Value1;
