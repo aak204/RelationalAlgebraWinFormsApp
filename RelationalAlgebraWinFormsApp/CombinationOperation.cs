@@ -95,8 +95,14 @@ namespace RelationalAlgebraWinFormsApp
             {
                 OperationLabel = Left,
                 CheckBoxes = new CheckBox[] { A_LeftJoin, B_LeftJoin, C_LeftJoin },
-                CheckedCount = 0
-            });
+                CheckedCount = 0,
+                OrderLabels = new Dictionary<CheckBox, Label>
+    {
+        { A_LeftJoin, Left_1 },
+        { B_LeftJoin, Left_2 },
+        { C_LeftJoin, Left_3 },
+    }
+            }) ;
             operations.Add(new Operation
             {
                 OperationLabel = Right,
@@ -212,11 +218,10 @@ namespace RelationalAlgebraWinFormsApp
             }
 
             // Специальная обработка для работы с разницей, учитывая порядок
-            if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0)
+            if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0 || currentOperation.OperationLabel == Left && currentOperationIndex == 0)
             {
                 currentOperation.OrderLabels[currentBox].Text = $"{currentOperation.CheckedCount}";
             }
-
 
             if (once)
             {
@@ -232,16 +237,34 @@ namespace RelationalAlgebraWinFormsApp
                 {
                     resultTable = Selected[0];
                 }
-                if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0)
+                if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0 || currentOperation.OperationLabel == Left && currentOperationIndex == 0)
                 {
                     // Если первая операция вычитания
-                    if (currentOperation.OrderLabels[currentBox].Text == "1")
+                    if (currentOperation.OrderLabels[currentBox].Text == "1" && currentOperation.OperationLabel == Diff)
                     {
                         resultTable = RelationalOperations.Difference(Selected[0], Selected[1]);
                     }
-                    else
+                    if (currentOperation.OrderLabels[currentBox].Text == "1" && currentOperation.OperationLabel == Left)
                     {
-                        resultTable = RelationalOperations.Difference(resultTable, Selected[1]);
+                        ColumnNameResult columnNameResult = getColumName(TextBoxLeft, resultTable, Selected[1]);
+                        if (columnNameResult.EmptyNameError || columnNameResult.ColumnNotExistError)
+                        {
+                            if (columnNameResult.EmptyNameError && !flag)
+                            {
+                                MessageBox.Show("Пожалуйста, укажите название столбца.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            if (columnNameResult.ColumnNotExistError && !flag)
+                            {
+                                MessageBox.Show($"Столбец '{columnNameResult.ColumnName}' должен быть в обоих таблицах.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            flag = true;
+                            ResetOperation(currentOperation, TextBoxLeft);
+                            flag = false;
+                            return;
+                        }
+
+                        resultTable = RelationalOperations.LeftJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
                     }
                 }
                 else

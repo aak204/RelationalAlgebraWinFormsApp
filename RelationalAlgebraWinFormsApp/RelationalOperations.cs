@@ -63,7 +63,7 @@ namespace RelationalAlgebraWinFormsApp
             if (table1.columnsNames.Length != table2.columnsNames.Length ||
                 !Enumerable.SequenceEqual(table1.columnsNames, table2.columnsNames))
             {
-                MessageBox.Show("Имена атрибутов или количество отличаются! Будут пустые ячейки", "Предупреждение",
+                MessageBox.Show("Имена атрибутов или количество отличаются! Будут пустые ячейки.", "Предупреждение",
     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -122,7 +122,7 @@ namespace RelationalAlgebraWinFormsApp
             if (table1.columnsNames.Length != table2.columnsNames.Length ||
                 !Enumerable.SequenceEqual(table1.columnsNames, table2.columnsNames))
             {
-                MessageBox.Show("Имена атрибутов или количество отличаются! Будут пустые ячейки", "Предупреждение",
+                MessageBox.Show("Имена атрибутов или количество отличаются! Будут только общие столбцы.", "Предупреждение",
     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             // Найдем общие столбцы по индексу
@@ -178,7 +178,7 @@ namespace RelationalAlgebraWinFormsApp
             if (table1.columnsNames.Length != table2.columnsNames.Length ||
                 !Enumerable.SequenceEqual(table1.columnsNames, table2.columnsNames))
             {
-                MessageBox.Show("Имена атрибутов или количество отличаются! Будут пустые ячейки", "Предупреждение",
+                MessageBox.Show("Имена атрибутов или количество отличаются! Атрибуты будут из первого отношения.", "Предупреждение",
         MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -314,7 +314,7 @@ namespace RelationalAlgebraWinFormsApp
             // Check if the column names exist in both tables
             if (!table1.columnsNames.Contains(columnName) || !table2.columnsNames.Contains(columnName))
             {
-                MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
 
@@ -393,7 +393,7 @@ namespace RelationalAlgebraWinFormsApp
             // Общая логика для всех типов соединений
             if (!table1.columnsNames.Contains(columnName) || !table2.columnsNames.Contains(columnName))
             {
-                MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах", "Предупреждение",
+                MessageBox.Show($"Атрибут '{columnName}' не найден в обеих таблицах.", "Предупреждение",
    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
@@ -525,7 +525,7 @@ namespace RelationalAlgebraWinFormsApp
                             break;
 
                         default:
-                            MessageBox.Show($"Недопустимый оператор: '{operatorType}'");
+                            MessageBox.Show($"Недопустимый оператор: '{operatorType}'.");
                             return null;
                     }
                 }
@@ -537,7 +537,7 @@ namespace RelationalAlgebraWinFormsApp
                     }
                     else if (operatorType != "=")
                     {
-                        MessageBox.Show($"Недопустимый оператор: '{operatorType}' для нечислового столбца");
+                        MessageBox.Show($"Недопустимый оператор: '{operatorType}' для нечислового столбца.");
                         return null;
                     }
                 }
@@ -555,7 +555,7 @@ namespace RelationalAlgebraWinFormsApp
             {
                 if (!table.columnsNames.Contains(columnName))
                 {
-                    MessageBox.Show($"Атрибут '{columnName}' не найден в таблице", "Предупреждение",
+                    MessageBox.Show($"Атрибут '{columnName}' не найден в таблице.", "Предупреждение",
                         MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
@@ -584,7 +584,7 @@ namespace RelationalAlgebraWinFormsApp
         {
             if (!table2.columnsNames.All(column => table1.columnsNames.Contains(column)))
             {
-                MessageBox.Show("Все столбцы второго отношения должны присутствовать в первом отношении", "Предупреждение",
+                MessageBox.Show("Все столбцы второго отношения должны присутствовать в первом отношении.", "Предупреждение",
    MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }

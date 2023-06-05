@@ -55,7 +55,8 @@ namespace RelationalAlgebraWinFormsApp
             ColName = FormDiff.getColumName();
             (value1, value2) = FormDiff.GetForm();
             selectAttribute = Selection(ColName, value1, value2);
-            if (value1 != null && value2 != null && selectAttribute != null)
+            checkboxOrder = FormDiff.GetCheckBoxOrder();
+            if (value1 != null && value2 != null && selectAttribute != null && checkboxOrder != null)
             {
                 MainForm.PerformOperationAndDisplayResult(selectedOperation);
                 Close();

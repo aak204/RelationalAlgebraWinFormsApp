@@ -225,7 +225,7 @@ namespace RelationalAlgebraWinFormsApp
 
             foreach (DataGridViewColumn column in resultDataGridView.Columns)
             {
-                column.MinimumWidth = 100; // Минимальная ширина
+                column.MinimumWidth = 300; // Минимальная ширина
             }
 
             foreach (var item in result.columnsNames)
@@ -512,7 +512,6 @@ namespace RelationalAlgebraWinFormsApp
 
         public (Table, Table) GetTables()
         {
-            // Create a mapping of checkbox number to table
             tableMapping = new Dictionary<int, Table>()
     {
         { 1, table1 },
@@ -520,7 +519,6 @@ namespace RelationalAlgebraWinFormsApp
         { 3, table3 }
     };
 
-            // Use the checkbox order to select the correct tables
             table1 = tableMapping[checkBoxOrder[0]];
             table2 = tableMapping[checkBoxOrder[1]];
 
@@ -561,12 +559,14 @@ namespace RelationalAlgebraWinFormsApp
 
         public Table LeftJoin(Table table1, Table table2, string columnNameJoin)
         {
+            (table1, table2) = GetTables();
             Table results = RelationalOperations.LeftJoin(table1, table2, columnNameJoin);
             return results;
         }
 
         public Table RightJoin(Table table1, Table table2, string columnNameJoin)
         {
+            (table1, table2) = GetTables();
             Table results = RelationalOperations.RightJoin(table1, table2, columnNameJoin);
             return results;
         }
