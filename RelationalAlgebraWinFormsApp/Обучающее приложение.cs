@@ -31,7 +31,7 @@ namespace RelationalAlgebraWinFormsApp
         private static Dictionary<int, Table> tableMapping;
         private string selectedOperation, newColmName, form1, form2, columnName, ColNameSelect, Operator, Condition;
         private int auto;
-        private bool once = true, partiallyFilled = true;
+        private bool once = true, partiallyFilled = true, lastOperationSuccess;
         private readonly UndoStack _undoStack = new UndoStack();
         private readonly UndoStack _undoStack2 = new UndoStack();
         private readonly UndoStack _undoStack3 = new UndoStack();
@@ -251,7 +251,7 @@ namespace RelationalAlgebraWinFormsApp
         {
             selectedOperation = select;
             result = PerformOperation(selectedOperation);
-
+            lastOperationSuccess = result != null;
             if (result != null)
             {
                 DisplayResultTableDataGridView(result);
@@ -279,6 +279,7 @@ namespace RelationalAlgebraWinFormsApp
 
         public void DisplayResultComb(Table result, bool res)
         {
+            lastOperationSuccess = result != null;
             if (result != null)
             {
                 DisplayResultTableDataGridView(result);
@@ -1141,6 +1142,28 @@ namespace RelationalAlgebraWinFormsApp
         {
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.J))
+            {
+                ShowLastOperationStatus();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void ShowLastOperationStatus()
+        {
+            if (lastOperationSuccess)
+            {
+                MessageBox.Show("Последняя операция была выполнена успешно!", "Статус операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Последняя операция не была выполнена успешно.", "Статус операции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
 

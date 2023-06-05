@@ -11,9 +11,14 @@ namespace RelationalAlgebraWinFormsApp
 {
     internal class UndoCommand : ICommand
     {
+        // Ссылка на объект DataGridView, в котором выполняется команда
         private readonly DataGridView _dataGridView;
+
+        // Индексы строки и столбца, для которых создается команда
         private readonly int _rowIndex;
         private readonly int _columnIndex;
+
+        // Массивы значений ячеек до и после выполнения команды
         private readonly object[] _previousValues;
         private readonly object[] _currentValues;
 
@@ -26,6 +31,7 @@ namespace RelationalAlgebraWinFormsApp
             _currentValues = currentValues;
         }
 
+        // Ссылка на главную форму
         public MainForm MainForm
         {
             get => default;
@@ -34,6 +40,7 @@ namespace RelationalAlgebraWinFormsApp
             }
         }
 
+        // Ссылка на стек команд для выполнения и отмены
         internal UndoStack UndoStack
         {
             get => default;
@@ -42,6 +49,7 @@ namespace RelationalAlgebraWinFormsApp
             }
         }
 
+        // Метод для выполнения команды. Изменяет значение текущей ячейки на _currentValues[_columnIndex]
         public void Execute(object parameter)
         {
             var columnName = _dataGridView.Columns[_columnIndex].Name;
@@ -49,6 +57,7 @@ namespace RelationalAlgebraWinFormsApp
             _dataGridView[columnIndex, _dataGridView.CurrentCell.RowIndex].Value = _currentValues[_columnIndex];
         }
 
+        // Метод для отмены команды. Изменяет значение ячейки на _previousValues[_columnIndex]
         public void Undo()
         {
             var columnName = _dataGridView.Columns[_columnIndex].Name;
@@ -56,11 +65,13 @@ namespace RelationalAlgebraWinFormsApp
             _dataGridView[columnIndex, _rowIndex].Value = _previousValues[_columnIndex];
         }
 
+        // Проверяет, может ли команда быть выполнена. В данном случае всегда возвращает true.
         public bool CanExecute(object parameter)
         {
             return true;
         }
 
+        // Событие, вызываемое при изменении возможности выполнения команды
         public event EventHandler CanExecuteChanged;
     }
 }
