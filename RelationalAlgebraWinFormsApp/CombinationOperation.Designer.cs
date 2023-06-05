@@ -103,6 +103,9 @@
             this.Left_1 = new System.Windows.Forms.Label();
             this.Left_2 = new System.Windows.Forms.Label();
             this.Left_3 = new System.Windows.Forms.Label();
+            this.Right_1 = new System.Windows.Forms.Label();
+            this.Right_2 = new System.Windows.Forms.Label();
+            this.Right_3 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -125,7 +128,7 @@
             this.C_Union.AutoSize = true;
             this.C_Union.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_Union.Location = new System.Drawing.Point(201, 76);
-            this.C_Union.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_Union.Margin = new System.Windows.Forms.Padding(4);
             this.C_Union.Name = "C_Union";
             this.C_Union.Size = new System.Drawing.Size(46, 32);
             this.C_Union.TabIndex = 12;
@@ -137,7 +140,7 @@
             this.B_Union.AutoSize = true;
             this.B_Union.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Union.Location = new System.Drawing.Point(141, 76);
-            this.B_Union.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Union.Margin = new System.Windows.Forms.Padding(4);
             this.B_Union.Name = "B_Union";
             this.B_Union.Size = new System.Drawing.Size(47, 32);
             this.B_Union.TabIndex = 11;
@@ -149,7 +152,7 @@
             this.A_Union.AutoSize = true;
             this.A_Union.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Union.Location = new System.Drawing.Point(80, 76);
-            this.A_Union.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Union.Margin = new System.Windows.Forms.Padding(4);
             this.A_Union.Name = "A_Union";
             this.A_Union.Size = new System.Drawing.Size(48, 32);
             this.A_Union.TabIndex = 10;
@@ -161,7 +164,7 @@
             this.C_Intersection.AutoSize = true;
             this.C_Intersection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_Intersection.Location = new System.Drawing.Point(201, 156);
-            this.C_Intersection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_Intersection.Margin = new System.Windows.Forms.Padding(4);
             this.C_Intersection.Name = "C_Intersection";
             this.C_Intersection.Size = new System.Drawing.Size(46, 32);
             this.C_Intersection.TabIndex = 20;
@@ -173,7 +176,7 @@
             this.B_Intersection.AutoSize = true;
             this.B_Intersection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Intersection.Location = new System.Drawing.Point(141, 156);
-            this.B_Intersection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Intersection.Margin = new System.Windows.Forms.Padding(4);
             this.B_Intersection.Name = "B_Intersection";
             this.B_Intersection.Size = new System.Drawing.Size(47, 32);
             this.B_Intersection.TabIndex = 19;
@@ -185,7 +188,7 @@
             this.A_Intersection.AutoSize = true;
             this.A_Intersection.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Intersection.Location = new System.Drawing.Point(80, 156);
-            this.A_Intersection.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Intersection.Margin = new System.Windows.Forms.Padding(4);
             this.A_Intersection.Name = "A_Intersection";
             this.A_Intersection.Size = new System.Drawing.Size(48, 32);
             this.A_Intersection.TabIndex = 18;
@@ -211,7 +214,7 @@
             this.С_Diff.AutoSize = true;
             this.С_Diff.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.С_Diff.Location = new System.Drawing.Point(215, 249);
-            this.С_Diff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.С_Diff.Margin = new System.Windows.Forms.Padding(4);
             this.С_Diff.Name = "С_Diff";
             this.С_Diff.Size = new System.Drawing.Size(46, 32);
             this.С_Diff.TabIndex = 24;
@@ -223,7 +226,7 @@
             this.B_Diff.AutoSize = true;
             this.B_Diff.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Diff.Location = new System.Drawing.Point(147, 249);
-            this.B_Diff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Diff.Margin = new System.Windows.Forms.Padding(4);
             this.B_Diff.Name = "B_Diff";
             this.B_Diff.Size = new System.Drawing.Size(47, 32);
             this.B_Diff.TabIndex = 23;
@@ -249,7 +252,7 @@
             this.C_CarProd.AutoSize = true;
             this.C_CarProd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_CarProd.Location = new System.Drawing.Point(201, 337);
-            this.C_CarProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_CarProd.Margin = new System.Windows.Forms.Padding(4);
             this.C_CarProd.Name = "C_CarProd";
             this.C_CarProd.Size = new System.Drawing.Size(46, 32);
             this.C_CarProd.TabIndex = 28;
@@ -261,7 +264,7 @@
             this.B_CarProd.AutoSize = true;
             this.B_CarProd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_CarProd.Location = new System.Drawing.Point(141, 337);
-            this.B_CarProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_CarProd.Margin = new System.Windows.Forms.Padding(4);
             this.B_CarProd.Name = "B_CarProd";
             this.B_CarProd.Size = new System.Drawing.Size(47, 32);
             this.B_CarProd.TabIndex = 27;
@@ -273,7 +276,7 @@
             this.A_CarProd.AutoSize = true;
             this.A_CarProd.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_CarProd.Location = new System.Drawing.Point(80, 337);
-            this.A_CarProd.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_CarProd.Margin = new System.Windows.Forms.Padding(4);
             this.A_CarProd.Name = "A_CarProd";
             this.A_CarProd.Size = new System.Drawing.Size(48, 32);
             this.A_CarProd.TabIndex = 26;
@@ -339,7 +342,7 @@
             this.A_Diff.AutoSize = true;
             this.A_Diff.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Diff.Location = new System.Drawing.Point(80, 249);
-            this.A_Diff.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Diff.Margin = new System.Windows.Forms.Padding(4);
             this.A_Diff.Name = "A_Diff";
             this.A_Diff.Size = new System.Drawing.Size(48, 32);
             this.A_Diff.TabIndex = 33;
@@ -350,7 +353,7 @@
             // 
             this.Combination.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Combination.Location = new System.Drawing.Point(1159, 15);
-            this.Combination.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Combination.Margin = new System.Windows.Forms.Padding(4);
             this.Combination.Name = "Combination";
             this.Combination.ReadOnly = true;
             this.Combination.Size = new System.Drawing.Size(353, 372);
@@ -394,7 +397,7 @@
             this.ResultButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ResultButton.ForeColor = System.Drawing.Color.White;
             this.ResultButton.Location = new System.Drawing.Point(1159, 437);
-            this.ResultButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ResultButton.Margin = new System.Windows.Forms.Padding(4);
             this.ResultButton.Name = "ResultButton";
             this.ResultButton.Size = new System.Drawing.Size(199, 64);
             this.ResultButton.TabIndex = 40;
@@ -409,7 +412,7 @@
             this.ClearButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ClearButton.ForeColor = System.Drawing.Color.White;
             this.ClearButton.Location = new System.Drawing.Point(80, 437);
-            this.ClearButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ClearButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(199, 64);
             this.ClearButton.TabIndex = 41;
@@ -421,8 +424,8 @@
             // 
             this.A_RightJoin.AutoSize = true;
             this.A_RightJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.A_RightJoin.Location = new System.Drawing.Point(407, 249);
-            this.A_RightJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_RightJoin.Location = new System.Drawing.Point(399, 249);
+            this.A_RightJoin.Margin = new System.Windows.Forms.Padding(4);
             this.A_RightJoin.Name = "A_RightJoin";
             this.A_RightJoin.Size = new System.Drawing.Size(48, 32);
             this.A_RightJoin.TabIndex = 57;
@@ -434,7 +437,7 @@
             this.C_FullJoin.AutoSize = true;
             this.C_FullJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_FullJoin.Location = new System.Drawing.Point(528, 337);
-            this.C_FullJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_FullJoin.Margin = new System.Windows.Forms.Padding(4);
             this.C_FullJoin.Name = "C_FullJoin";
             this.C_FullJoin.Size = new System.Drawing.Size(46, 32);
             this.C_FullJoin.TabIndex = 56;
@@ -446,7 +449,7 @@
             this.B_FullJoin.AutoSize = true;
             this.B_FullJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_FullJoin.Location = new System.Drawing.Point(468, 337);
-            this.B_FullJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_FullJoin.Margin = new System.Windows.Forms.Padding(4);
             this.B_FullJoin.Name = "B_FullJoin";
             this.B_FullJoin.Size = new System.Drawing.Size(47, 32);
             this.B_FullJoin.TabIndex = 55;
@@ -458,7 +461,7 @@
             this.A_FullJoin.AutoSize = true;
             this.A_FullJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_FullJoin.Location = new System.Drawing.Point(407, 337);
-            this.A_FullJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_FullJoin.Margin = new System.Windows.Forms.Padding(4);
             this.A_FullJoin.Name = "A_FullJoin";
             this.A_FullJoin.Size = new System.Drawing.Size(48, 32);
             this.A_FullJoin.TabIndex = 54;
@@ -483,8 +486,8 @@
             // 
             this.C_RightJoin.AutoSize = true;
             this.C_RightJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.C_RightJoin.Location = new System.Drawing.Point(528, 249);
-            this.C_RightJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_RightJoin.Location = new System.Drawing.Point(532, 250);
+            this.C_RightJoin.Margin = new System.Windows.Forms.Padding(4);
             this.C_RightJoin.Name = "C_RightJoin";
             this.C_RightJoin.Size = new System.Drawing.Size(46, 32);
             this.C_RightJoin.TabIndex = 52;
@@ -496,7 +499,7 @@
             this.B_RightJoin.AutoSize = true;
             this.B_RightJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_RightJoin.Location = new System.Drawing.Point(468, 250);
-            this.B_RightJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_RightJoin.Margin = new System.Windows.Forms.Padding(4);
             this.B_RightJoin.Name = "B_RightJoin";
             this.B_RightJoin.Size = new System.Drawing.Size(47, 32);
             this.B_RightJoin.TabIndex = 51;
@@ -522,7 +525,7 @@
             this.C_LeftJoin.AutoSize = true;
             this.C_LeftJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_LeftJoin.Location = new System.Drawing.Point(532, 156);
-            this.C_LeftJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_LeftJoin.Margin = new System.Windows.Forms.Padding(4);
             this.C_LeftJoin.Name = "C_LeftJoin";
             this.C_LeftJoin.Size = new System.Drawing.Size(46, 32);
             this.C_LeftJoin.TabIndex = 49;
@@ -534,7 +537,7 @@
             this.B_LeftJoin.AutoSize = true;
             this.B_LeftJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_LeftJoin.Location = new System.Drawing.Point(468, 156);
-            this.B_LeftJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_LeftJoin.Margin = new System.Windows.Forms.Padding(4);
             this.B_LeftJoin.Name = "B_LeftJoin";
             this.B_LeftJoin.Size = new System.Drawing.Size(47, 32);
             this.B_LeftJoin.TabIndex = 48;
@@ -546,7 +549,7 @@
             this.A_LeftJoin.AutoSize = true;
             this.A_LeftJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_LeftJoin.Location = new System.Drawing.Point(400, 155);
-            this.A_LeftJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_LeftJoin.Margin = new System.Windows.Forms.Padding(4);
             this.A_LeftJoin.Name = "A_LeftJoin";
             this.A_LeftJoin.Size = new System.Drawing.Size(48, 32);
             this.A_LeftJoin.TabIndex = 47;
@@ -572,7 +575,7 @@
             this.C_InnerJoin.AutoSize = true;
             this.C_InnerJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_InnerJoin.Location = new System.Drawing.Point(528, 76);
-            this.C_InnerJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_InnerJoin.Margin = new System.Windows.Forms.Padding(4);
             this.C_InnerJoin.Name = "C_InnerJoin";
             this.C_InnerJoin.Size = new System.Drawing.Size(46, 32);
             this.C_InnerJoin.TabIndex = 45;
@@ -584,7 +587,7 @@
             this.B_InnerJoin.AutoSize = true;
             this.B_InnerJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_InnerJoin.Location = new System.Drawing.Point(468, 76);
-            this.B_InnerJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_InnerJoin.Margin = new System.Windows.Forms.Padding(4);
             this.B_InnerJoin.Name = "B_InnerJoin";
             this.B_InnerJoin.Size = new System.Drawing.Size(47, 32);
             this.B_InnerJoin.TabIndex = 44;
@@ -596,7 +599,7 @@
             this.A_InnerJoin.AutoSize = true;
             this.A_InnerJoin.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_InnerJoin.Location = new System.Drawing.Point(407, 76);
-            this.A_InnerJoin.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_InnerJoin.Margin = new System.Windows.Forms.Padding(4);
             this.A_InnerJoin.Name = "A_InnerJoin";
             this.A_InnerJoin.Size = new System.Drawing.Size(48, 32);
             this.A_InnerJoin.TabIndex = 43;
@@ -660,7 +663,7 @@
             // TextBoxInner
             // 
             this.TextBoxInner.Location = new System.Drawing.Point(588, 76);
-            this.TextBoxInner.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxInner.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxInner.Name = "TextBoxInner";
             this.TextBoxInner.Size = new System.Drawing.Size(132, 22);
             this.TextBoxInner.TabIndex = 64;
@@ -668,23 +671,23 @@
             // TextBoxLeft
             // 
             this.TextBoxLeft.Location = new System.Drawing.Point(588, 161);
-            this.TextBoxLeft.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxLeft.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxLeft.Name = "TextBoxLeft";
             this.TextBoxLeft.Size = new System.Drawing.Size(132, 22);
-            this.TextBoxLeft.TabIndex = 65;
+            this.TextBoxLeft.TabIndex = 10;
             // 
             // TextBoxRight
             // 
             this.TextBoxRight.Location = new System.Drawing.Point(588, 250);
-            this.TextBoxRight.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxRight.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxRight.Name = "TextBoxRight";
             this.TextBoxRight.Size = new System.Drawing.Size(132, 22);
-            this.TextBoxRight.TabIndex = 66;
+            this.TextBoxRight.TabIndex = 11;
             // 
             // TextBoxFull
             // 
             this.TextBoxFull.Location = new System.Drawing.Point(588, 342);
-            this.TextBoxFull.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxFull.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxFull.Name = "TextBoxFull";
             this.TextBoxFull.Size = new System.Drawing.Size(132, 22);
             this.TextBoxFull.TabIndex = 67;
@@ -696,7 +699,7 @@
             this.button1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.button1.ForeColor = System.Drawing.Color.White;
             this.button1.Location = new System.Drawing.Point(588, 437);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(208, 64);
             this.button1.TabIndex = 68;
@@ -709,7 +712,7 @@
             this.C_Proj.AutoSize = true;
             this.C_Proj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_Proj.Location = new System.Drawing.Point(891, 204);
-            this.C_Proj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_Proj.Margin = new System.Windows.Forms.Padding(4);
             this.C_Proj.Name = "C_Proj";
             this.C_Proj.Size = new System.Drawing.Size(46, 32);
             this.C_Proj.TabIndex = 76;
@@ -721,7 +724,7 @@
             this.B_Proj.AutoSize = true;
             this.B_Proj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Proj.Location = new System.Drawing.Point(831, 204);
-            this.B_Proj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Proj.Margin = new System.Windows.Forms.Padding(4);
             this.B_Proj.Name = "B_Proj";
             this.B_Proj.Size = new System.Drawing.Size(47, 32);
             this.B_Proj.TabIndex = 75;
@@ -733,7 +736,7 @@
             this.A_Proj.AutoSize = true;
             this.A_Proj.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Proj.Location = new System.Drawing.Point(769, 204);
-            this.A_Proj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Proj.Margin = new System.Windows.Forms.Padding(4);
             this.A_Proj.Name = "A_Proj";
             this.A_Proj.Size = new System.Drawing.Size(48, 32);
             this.A_Proj.TabIndex = 74;
@@ -759,7 +762,7 @@
             this.C_Select.AutoSize = true;
             this.C_Select.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_Select.Location = new System.Drawing.Point(891, 124);
-            this.C_Select.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_Select.Margin = new System.Windows.Forms.Padding(4);
             this.C_Select.Name = "C_Select";
             this.C_Select.Size = new System.Drawing.Size(46, 32);
             this.C_Select.TabIndex = 72;
@@ -771,7 +774,7 @@
             this.B_Select.AutoSize = true;
             this.B_Select.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Select.Location = new System.Drawing.Point(831, 124);
-            this.B_Select.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Select.Margin = new System.Windows.Forms.Padding(4);
             this.B_Select.Name = "B_Select";
             this.B_Select.Size = new System.Drawing.Size(47, 32);
             this.B_Select.TabIndex = 71;
@@ -783,7 +786,7 @@
             this.A_Select.AutoSize = true;
             this.A_Select.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Select.Location = new System.Drawing.Point(769, 124);
-            this.A_Select.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Select.Margin = new System.Windows.Forms.Padding(4);
             this.A_Select.Name = "A_Select";
             this.A_Select.Size = new System.Drawing.Size(48, 32);
             this.A_Select.TabIndex = 70;
@@ -809,7 +812,7 @@
             this.C_Divide.AutoSize = true;
             this.C_Divide.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.C_Divide.Location = new System.Drawing.Point(891, 297);
-            this.C_Divide.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.C_Divide.Margin = new System.Windows.Forms.Padding(4);
             this.C_Divide.Name = "C_Divide";
             this.C_Divide.Size = new System.Drawing.Size(46, 32);
             this.C_Divide.TabIndex = 80;
@@ -821,7 +824,7 @@
             this.B_Divide.AutoSize = true;
             this.B_Divide.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.B_Divide.Location = new System.Drawing.Point(831, 297);
-            this.B_Divide.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.B_Divide.Margin = new System.Windows.Forms.Padding(4);
             this.B_Divide.Name = "B_Divide";
             this.B_Divide.Size = new System.Drawing.Size(47, 32);
             this.B_Divide.TabIndex = 79;
@@ -833,7 +836,7 @@
             this.A_Divide.AutoSize = true;
             this.A_Divide.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.A_Divide.Location = new System.Drawing.Point(769, 297);
-            this.A_Divide.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.A_Divide.Margin = new System.Windows.Forms.Padding(4);
             this.A_Divide.Name = "A_Divide";
             this.A_Divide.Size = new System.Drawing.Size(48, 32);
             this.A_Divide.TabIndex = 78;
@@ -857,7 +860,7 @@
             // TextBoxSelect
             // 
             this.TextBoxSelect.Location = new System.Drawing.Point(1017, 124);
-            this.TextBoxSelect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxSelect.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxSelect.Name = "TextBoxSelect";
             this.TextBoxSelect.Size = new System.Drawing.Size(132, 22);
             this.TextBoxSelect.TabIndex = 81;
@@ -865,7 +868,7 @@
             // TextBoxProj
             // 
             this.TextBoxProj.Location = new System.Drawing.Point(1017, 209);
-            this.TextBoxProj.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.TextBoxProj.Margin = new System.Windows.Forms.Padding(4);
             this.TextBoxProj.Name = "TextBoxProj";
             this.TextBoxProj.Size = new System.Drawing.Size(132, 22);
             this.TextBoxProj.TabIndex = 82;
@@ -906,7 +909,7 @@
             this.R_1.Enabled = false;
             this.R_1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.R_1.Location = new System.Drawing.Point(951, 124);
-            this.R_1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.R_1.Margin = new System.Windows.Forms.Padding(4);
             this.R_1.Name = "R_1";
             this.R_1.Size = new System.Drawing.Size(47, 32);
             this.R_1.TabIndex = 86;
@@ -919,7 +922,7 @@
             this.R_2.Enabled = false;
             this.R_2.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.R_2.Location = new System.Drawing.Point(951, 204);
-            this.R_2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.R_2.Margin = new System.Windows.Forms.Padding(4);
             this.R_2.Name = "R_2";
             this.R_2.Size = new System.Drawing.Size(47, 32);
             this.R_2.TabIndex = 87;
@@ -934,14 +937,14 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1529, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1529, 30);
             this.menuStrip1.TabIndex = 88;
             this.menuStrip1.Text = "menuStrip1";
             // 
             // справкаToolStripMenuItem
             // 
             this.справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
-            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 24);
+            this.справкаToolStripMenuItem.Size = new System.Drawing.Size(81, 26);
             this.справкаToolStripMenuItem.Text = "Справка";
             this.справкаToolStripMenuItem.Click += new System.EventHandler(this.справкаToolStripMenuItem_Click);
             // 
@@ -975,11 +978,44 @@
             this.Left_3.Size = new System.Drawing.Size(0, 20);
             this.Left_3.TabIndex = 91;
             // 
+            // Right_1
+            // 
+            this.Right_1.AutoSize = true;
+            this.Right_1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Right_1.Location = new System.Drawing.Point(382, 252);
+            this.Right_1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Right_1.Name = "Right_1";
+            this.Right_1.Size = new System.Drawing.Size(0, 20);
+            this.Right_1.TabIndex = 92;
+            // 
+            // Right_2
+            // 
+            this.Right_2.AutoSize = true;
+            this.Right_2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Right_2.Location = new System.Drawing.Point(448, 253);
+            this.Right_2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Right_2.Name = "Right_2";
+            this.Right_2.Size = new System.Drawing.Size(0, 20);
+            this.Right_2.TabIndex = 93;
+            // 
+            // Right_3
+            // 
+            this.Right_3.AutoSize = true;
+            this.Right_3.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Right_3.Location = new System.Drawing.Point(512, 254);
+            this.Right_3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.Right_3.Name = "Right_3";
+            this.Right_3.Size = new System.Drawing.Size(0, 20);
+            this.Right_3.TabIndex = 94;
+            // 
             // CombinationOperation
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1529, 580);
+            this.Controls.Add(this.Right_3);
+            this.Controls.Add(this.Right_2);
+            this.Controls.Add(this.Right_1);
             this.Controls.Add(this.Left_3);
             this.Controls.Add(this.Left_2);
             this.Controls.Add(this.Left_1);
@@ -1056,7 +1092,7 @@
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MainMenuStrip = this.menuStrip1;
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.Name = "CombinationOperation";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -1145,5 +1181,8 @@
         private System.Windows.Forms.Label Left_1;
         private System.Windows.Forms.Label Left_2;
         private System.Windows.Forms.Label Left_3;
+        private System.Windows.Forms.Label Right_1;
+        private System.Windows.Forms.Label Right_2;
+        private System.Windows.Forms.Label Right_3;
     }
 }
