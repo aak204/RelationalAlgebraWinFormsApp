@@ -116,7 +116,7 @@ namespace RelationalAlgebraWinFormsApp
 
                     checkBoxOrder.Add(current);
 
-                    if (operation == "Difference")
+                    if (operation == "Difference" || operation == "LeftJoin" || operation == "RightJoin")
                     {
                         checkBoxLabels[current].ForeColor = Color.Red;
                         checkBoxLabels[current].Text = (checkBoxOrder.Count).ToString();
@@ -125,7 +125,7 @@ namespace RelationalAlgebraWinFormsApp
                 else
                 {
                     checkBoxOrder.Remove(current);
-                    if (operation == "Difference")
+                    if (operation == "Difference" || operation == "LeftJoin" || operation == "RightJoin")
                     {
                         checkBoxLabels[current].Text = "";
 

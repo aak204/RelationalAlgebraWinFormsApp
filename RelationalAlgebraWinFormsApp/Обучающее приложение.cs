@@ -32,7 +32,7 @@ namespace RelationalAlgebraWinFormsApp
         private static Dictionary<int, Table> tableMapping;
         private string selectedOperation, newColmName, form1, form2, columnName, ColNameSelect, Operator, Condition;
         private int auto;
-        private bool once = true, partiallyFilled = true;
+        private bool once = true, partiallyFilled = true, lastOperationSuccess;
         private readonly UndoStack _undoStack = new UndoStack();
         private readonly UndoStack _undoStack2 = new UndoStack();
         private readonly UndoStack _undoStack3 = new UndoStack();
@@ -226,7 +226,7 @@ namespace RelationalAlgebraWinFormsApp
 
             foreach (DataGridViewColumn column in resultDataGridView.Columns)
             {
-                column.MinimumWidth = 100; // Минимальная ширина
+                column.MinimumWidth = 300; // Минимальная ширина
             }
 
             foreach (var item in result.columnsNames)
@@ -252,7 +252,7 @@ namespace RelationalAlgebraWinFormsApp
         {
             selectedOperation = select;
             result = PerformOperation(selectedOperation);
-
+            lastOperationSuccess = result != null;
             if (result != null)
             {
                 DisplayResultTableDataGridView(result);
@@ -280,6 +280,7 @@ namespace RelationalAlgebraWinFormsApp
 
         public void DisplayResultComb(Table result, bool res)
         {
+            lastOperationSuccess = result != null;
             if (result != null)
             {
                 DisplayResultTableDataGridView(result);
@@ -583,7 +584,6 @@ namespace RelationalAlgebraWinFormsApp
 
         public (Table, Table) GetTables()
         {
-            // Create a mapping of checkbox number to table
             tableMapping = new Dictionary<int, Table>()
     {
         { 1, table1 },
@@ -591,7 +591,6 @@ namespace RelationalAlgebraWinFormsApp
         { 3, table3 }
     };
 
-            // Use the checkbox order to select the correct tables
             table1 = tableMapping[checkBoxOrder[0]];
             table2 = tableMapping[checkBoxOrder[1]];
 
@@ -632,12 +631,14 @@ namespace RelationalAlgebraWinFormsApp
 
         public Table LeftJoin(Table table1, Table table2, string columnNameJoin)
         {
+            (table1, table2) = GetTables();
             Table results = RelationalOperations.LeftJoin(table1, table2, columnNameJoin);
             return results;
         }
 
         public Table RightJoin(Table table1, Table table2, string columnNameJoin)
         {
+            (table1, table2) = GetTables();
             Table results = RelationalOperations.RightJoin(table1, table2, columnNameJoin);
             return results;
         }
@@ -1236,6 +1237,28 @@ namespace RelationalAlgebraWinFormsApp
         {
 
         }
+        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        {
+            if (keyData == (Keys.Control | Keys.J))
+            {
+                ShowLastOperationStatus();
+                return true;
+            }
+            return base.ProcessCmdKey(ref msg, keyData);
+        }
+
+        private void ShowLastOperationStatus()
+        {
+            if (lastOperationSuccess)
+            {
+                MessageBox.Show("Последняя операция была выполнена успешно!", "Статус операции", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("Последняя операция не была выполнена успешно.", "Статус операции", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
     }
 }
 

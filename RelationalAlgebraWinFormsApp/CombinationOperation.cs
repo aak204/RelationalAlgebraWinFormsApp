@@ -95,13 +95,25 @@ namespace RelationalAlgebraWinFormsApp
             {
                 OperationLabel = Left,
                 CheckBoxes = new CheckBox[] { A_LeftJoin, B_LeftJoin, C_LeftJoin },
-                CheckedCount = 0
-            });
+                CheckedCount = 0,
+                OrderLabels = new Dictionary<CheckBox, Label>
+    {
+        { A_LeftJoin, Left_1 },
+        { B_LeftJoin, Left_2 },
+        { C_LeftJoin, Left_3 },
+    }
+            }) ;
             operations.Add(new Operation
             {
                 OperationLabel = Right,
                 CheckBoxes = new CheckBox[] { A_RightJoin, B_RightJoin, C_RightJoin },
-                CheckedCount = 0
+                CheckedCount = 0,
+            OrderLabels = new Dictionary<CheckBox, Label>
+    {
+        { A_RightJoin, Right_1 },
+        { B_RightJoin, Right_2 },
+        { C_RightJoin, Right_3 },
+    }
             });
             operations.Add(new Operation
             {
@@ -212,11 +224,10 @@ namespace RelationalAlgebraWinFormsApp
             }
 
             // Специальная обработка для работы с разницей, учитывая порядок
-            if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0)
+            if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0 || currentOperation.OperationLabel == Left && currentOperationIndex == 0 || currentOperation.OperationLabel == Right && currentOperationIndex == 0)
             {
                 currentOperation.OrderLabels[currentBox].Text = $"{currentOperation.CheckedCount}";
             }
-
 
             if (once)
             {
@@ -232,16 +243,56 @@ namespace RelationalAlgebraWinFormsApp
                 {
                     resultTable = Selected[0];
                 }
-                if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0)
+                if (currentOperation.OperationLabel == Diff && currentOperationIndex == 0 || currentOperation.OperationLabel == Left && currentOperationIndex == 0 || currentOperation.OperationLabel == Right && currentOperationIndex == 0)
                 {
                     // Если первая операция вычитания
-                    if (currentOperation.OrderLabels[currentBox].Text == "1")
+                    if (currentOperation.OperationLabel == Diff)
                     {
                         resultTable = RelationalOperations.Difference(Selected[0], Selected[1]);
                     }
-                    else
+                    if (currentOperation.OperationLabel == Left)
                     {
-                        resultTable = RelationalOperations.Difference(resultTable, Selected[1]);
+                        ColumnNameResult columnNameResult = getColumName(TextBoxLeft, resultTable, Selected[1]);
+                        if (columnNameResult.EmptyNameError || columnNameResult.ColumnNotExistError)
+                        {
+                            if (columnNameResult.EmptyNameError && !flag)
+                            {
+                                MessageBox.Show("Пожалуйста, укажите название столбца.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            if (columnNameResult.ColumnNotExistError && !flag)
+                            {
+                                MessageBox.Show($"Столбец '{columnNameResult.ColumnName}' должен быть в обоих таблицах.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            flag = true;
+                            ResetOperation(currentOperation, TextBoxLeft);
+                            flag = false;
+                            return;
+                        }
+
+                        resultTable = RelationalOperations.LeftJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
+                    }
+                    if(currentOperation.OperationLabel == Right)
+                    {
+                        ColumnNameResult columnNameResult = getColumName(TextBoxFull, resultTable, Selected[1]);
+                        if (columnNameResult.EmptyNameError || columnNameResult.ColumnNotExistError)
+                        {
+                            if (columnNameResult.EmptyNameError && !flag)
+                            {
+                                MessageBox.Show("Пожалуйста, укажите название столбца.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+
+                            if (columnNameResult.ColumnNotExistError && !flag)
+                            {
+                                MessageBox.Show($"Столбец '{columnNameResult.ColumnName}' должен быть в обоих таблицах.", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                            flag = true;
+                            ResetOperation(currentOperation, TextBoxFull);
+                            flag = false;
+                            return;
+                        }
+
+                        resultTable = RelationalOperations.FullJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
                     }
                 }
                 else
@@ -588,7 +639,18 @@ namespace RelationalAlgebraWinFormsApp
                 checkBox.Checked = false;
                 checkBox.Enabled = true;
             }
-
+            if (name.TabIndex == 11)
+            {
+                currentOperation.OrderLabels[A_RightJoin].Text = "";
+                currentOperation.OrderLabels[B_RightJoin].Text = "";
+                currentOperation.OrderLabels[C_RightJoin].Text = "";
+            }
+            else if (name.TabIndex == 10)
+            {
+                currentOperation.OrderLabels[A_LeftJoin].Text = "";
+                currentOperation.OrderLabels[B_LeftJoin].Text = "";
+                currentOperation.OrderLabels[C_LeftJoin].Text = "";
+            }
             name.Text = "";
         }
 
@@ -613,6 +675,24 @@ namespace RelationalAlgebraWinFormsApp
                     checkbox.Checked = false;
                     checkbox.Enabled = true;
                     checkbox.CheckedChanged += CheckBox_CheckedChanged;
+                }
+                if (operation.OperationLabel == Diff)
+                {
+                    operation.OrderLabels[A_Diff].Text = "";
+                    operation.OrderLabels[B_Diff].Text = "";
+                    operation.OrderLabels[С_Diff].Text = "";
+                }
+                if (operation.OperationLabel == Left)
+                {
+                    operation.OrderLabels[A_LeftJoin].Text = "";
+                    operation.OrderLabels[B_LeftJoin].Text = "";
+                    operation.OrderLabels[C_LeftJoin].Text = "";
+                }
+                if (operation.OperationLabel == Right)
+                {
+                    operation.OrderLabels[A_RightJoin].Text = "";
+                    operation.OrderLabels[B_RightJoin].Text = "";
+                    operation.OrderLabels[C_RightJoin].Text = "";
                 }
             }
 
