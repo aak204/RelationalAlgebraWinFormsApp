@@ -1,5 +1,6 @@
 ﻿using CsvHelper;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -330,6 +331,77 @@ namespace RelationalAlgebraWinFormsApp
             }
         }
 
+        private Table LoadResultFromFile()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog
+            {
+                Filter = "CSV File|*.csv|JSON File|*.json",
+                Title = "Загрузить результат"
+            };
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                switch (openFileDialog.FilterIndex)
+                {
+                    case 1:
+                        return LoadResultFromCsv(openFileDialog.FileName);
+                    case 2:
+                        return LoadResultFromJson(openFileDialog.FileName);
+                    default:
+                        throw new Exception("Неверный тип файла.");
+                }
+            }
+            return null;
+        }
+
+        private Table LoadResultFromCsv(string fileName)
+        {
+            using (var reader = new StreamReader(fileName, Encoding.GetEncoding("windows-1251")))
+            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            {
+                csv.Read();
+                csv.ReadHeader();
+
+                var result = new Table(csv.HeaderRecord);
+
+                while (csv.Read())
+                {
+                    var row = new object[csv.HeaderRecord.Length];
+                    for (int i = 0; i < csv.HeaderRecord.Length; i++)
+                    {
+                        row[i] = csv.GetField(i);
+                    }
+                    result.data_obj.Add(row);
+                }
+
+                return result;
+            }
+        }
+
+        private Table LoadResultFromJson(string fileName)
+        {
+            string json = File.ReadAllText(fileName);
+
+            // Парсим объекта JSON
+            JObject jsonObject = JObject.Parse(json);
+
+            // Получение массива columnsNames и преобразование его в строковый массив
+            JArray columnsNamesArray = (JArray)jsonObject["columnsNames"];
+            string[] columnsNames = columnsNamesArray.ToObject<string[]>();
+
+            // Создайте объект Table, используя конструктор, который принимает массив columnsNames
+            Table result = new Table(columnsNames);
+
+            // Десериализуем часть data_obj
+            JArray data_objArray = (JArray)jsonObject["data_obj"];
+            foreach (JArray rowArray in data_objArray)
+            {
+                object[] row = rowArray.ToObject<object[]>();
+                result.data_obj.Add(row);
+            }
+
+            return result;
+        }
 
         private void SaveResultToCsv(Table result, string fileName)
         {
@@ -354,7 +426,6 @@ namespace RelationalAlgebraWinFormsApp
                 }
             }
         }
-
 
         private void SaveResultToJson(Table result, string fileName)
         {
@@ -852,14 +923,16 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
                 ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
+                ToolStripMenuItem loadRecord = new ToolStripMenuItem("Загрузить отношение");
 
                 addItem.Click += AddItem_Click;
                 recordItem.Click += RecordItem_Click;
                 removeItem.Click += RemoveItem_Click;
                 removeRecord.Click += RemoveRecord_Click;
                 saveRecord.Click += SaveRecord_Click;
+                loadRecord.Click += LoadRecord_Click;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord, loadRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
         }
@@ -867,6 +940,12 @@ namespace RelationalAlgebraWinFormsApp
         private void SaveRecord_Click(object sender, EventArgs e)
         {
             SaveResultToFile(table1);
+        }
+
+        private void LoadRecord_Click(object sender, EventArgs e)
+        {
+            table1 = LoadResultFromFile();
+            PopulateDataGridView(Fill.Auto);
         }
 
         private void EditTableTwo_MouseClick(object sender, MouseEventArgs e)
@@ -879,14 +958,16 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
                 ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
+                ToolStripMenuItem loadRecord = new ToolStripMenuItem("Загрузить отношение");
 
                 addItem.Click += AddItem_ClickTwo;
                 recordItem.Click += RecordItem_ClickTwo;
                 removeItem.Click += RemoveItem_ClickTwo;
                 removeRecord.Click += RemoveRecord_ClickTwo;
                 saveRecord.Click += SaveRecord_ClickTwo;
+                loadRecord.Click += LoadRecord_ClickTwo;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord, loadRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
         }
@@ -894,6 +975,12 @@ namespace RelationalAlgebraWinFormsApp
         private void SaveRecord_ClickTwo(object sender, EventArgs e)
         {
             SaveResultToFile(table2);
+        }
+
+        private void LoadRecord_ClickTwo(object sender, EventArgs e)
+        {
+            table2 = LoadResultFromFile();
+            PopulateDataGridView(Fill.Auto);
         }
 
         private void EditTableThree_MouseClick(object sender, MouseEventArgs e)
@@ -906,16 +993,24 @@ namespace RelationalAlgebraWinFormsApp
                 ToolStripMenuItem removeItem = new ToolStripMenuItem("Удалить атрибут");
                 ToolStripMenuItem removeRecord = new ToolStripMenuItem("Удалить запись");
                 ToolStripMenuItem saveRecord = new ToolStripMenuItem("Сохранить отношение");
+                ToolStripMenuItem loadRecord = new ToolStripMenuItem("Загрузить отношение");
 
                 addItem.Click += AddItem_ClickThree;
                 recordItem.Click += RecordItem_ClickThree;
                 removeItem.Click += RemoveItem_ClickThree;
                 removeRecord.Click += RemoveRecord_ClickThree;
                 saveRecord.Click += SaveRecord_ClickThree;
+                loadRecord.Click += LoadRecord_ClickThree;
 
-                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord });
+                contextMenuStrip.Items.AddRange(new[] { addItem, recordItem, removeItem, removeRecord, saveRecord, loadRecord });
                 contextMenuStrip.Show(Cursor.Position);
             }
+        }
+
+        private void LoadRecord_ClickThree(object sender, EventArgs e)
+        {
+            table3 = LoadResultFromFile();
+            PopulateDataGridView(Fill.Auto);
         }
 
         private void SaveRecord_ClickThree(object sender, EventArgs e)
