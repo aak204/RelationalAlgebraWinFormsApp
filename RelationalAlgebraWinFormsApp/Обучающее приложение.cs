@@ -349,7 +349,8 @@ namespace RelationalAlgebraWinFormsApp
                     case 2:
                         return LoadResultFromJson(openFileDialog.FileName);
                     default:
-                        throw new Exception("Неверный тип файла.");
+                        MessageBox.Show("Неверный тип файла.");
+                        return null;
                 }
             }
             return null;
@@ -363,6 +364,13 @@ namespace RelationalAlgebraWinFormsApp
                 csv.Read();
                 csv.ReadHeader();
 
+                // Check if the first header is numeric
+                if (!int.TryParse(csv.HeaderRecord[0], out _))
+                {
+                    MessageBox.Show("Первый столбец в CSV-файле не является числовым.");
+                    return null;
+                }
+
                 var result = new Table(csv.HeaderRecord);
 
                 while (csv.Read())
@@ -370,6 +378,12 @@ namespace RelationalAlgebraWinFormsApp
                     var row = new object[csv.HeaderRecord.Length];
                     for (int i = 0; i < csv.HeaderRecord.Length; i++)
                     {
+                        if (i == 0 && !int.TryParse(csv.GetField(i), out _))
+                        {
+                            MessageBox.Show($"Значение в первом столбце строки {csv.Context} не является числом.");
+                            return null;
+                        }
+
                         row[i] = csv.GetField(i);
                     }
                     result.data_obj.Add(row);
@@ -383,21 +397,30 @@ namespace RelationalAlgebraWinFormsApp
         {
             string json = File.ReadAllText(fileName);
 
-            // Парсим объекта JSON
             JObject jsonObject = JObject.Parse(json);
 
-            // Получение массива columnsNames и преобразование его в строковый массив
             JArray columnsNamesArray = (JArray)jsonObject["columnsNames"];
             string[] columnsNames = columnsNamesArray.ToObject<string[]>();
 
-            // Создайте объект Table, используя конструктор, который принимает массив columnsNames
+            if (!int.TryParse(columnsNames[0], out _))
+            {
+                MessageBox.Show("Первый столбец в файле JSON не является числовым.");
+                return null;
+            }
+
             Table result = new Table(columnsNames);
 
-            // Десериализуем часть data_obj
             JArray data_objArray = (JArray)jsonObject["data_obj"];
             foreach (JArray rowArray in data_objArray)
             {
                 object[] row = rowArray.ToObject<object[]>();
+
+                if (!int.TryParse(row[0]?.ToString(), out _))
+                {
+                    MessageBox.Show("Значение в первом столбце строки в файле JSON не является числом.");
+                    return null;
+                }
+
                 result.data_obj.Add(row);
             }
 

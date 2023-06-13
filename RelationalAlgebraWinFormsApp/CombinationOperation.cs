@@ -272,7 +272,7 @@ namespace RelationalAlgebraWinFormsApp
 
                         resultTable = RelationalOperations.LeftJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
                     }
-                    if(currentOperation.OperationLabel == Right)
+                    if (currentOperation.OperationLabel == Right)
                     {
                         ColumnNameResult columnNameResult = getColumName(TextBoxFull, resultTable, Selected[1]);
                         if (columnNameResult.EmptyNameError || columnNameResult.ColumnNotExistError)
@@ -292,7 +292,7 @@ namespace RelationalAlgebraWinFormsApp
                             return;
                         }
 
-                        resultTable = RelationalOperations.FullJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
+                        resultTable = RelationalOperations.RightJoin(Selected[0], Selected[1], columnNameResult.ColumnName);
                     }
                 }
                 else
@@ -619,7 +619,7 @@ namespace RelationalAlgebraWinFormsApp
             {
                 result.EmptyNameError = true;
             }
-            else if (!resultTable.columnsNames.Contains(result.ColumnName) && !selectTable.columnsNames.Contains(result.ColumnName))
+            else if (!resultTable.columnsNames.Contains(result.ColumnName) || !selectTable.columnsNames.Contains(result.ColumnName))
             {
                 result.ColumnNotExistError = true;
             }

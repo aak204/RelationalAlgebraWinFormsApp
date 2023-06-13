@@ -14,7 +14,6 @@ namespace RelationalAlgebraWinFormsApp
     {
         private string selectedOperation, value1, value2, selectAttribute = null, ColName, Operator, Condition;
         private string[] AttrNames;
-        private bool flag;
         private Table _table1, _table2, _table3;
         private MainForm MainForm;
         private List<int> checkboxOrder;
